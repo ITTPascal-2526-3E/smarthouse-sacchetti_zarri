@@ -5,5 +5,6 @@
         int a;
         int prova = 0;
         int prova2 = 2;
+        int prova3 = 3;
     }
 }
