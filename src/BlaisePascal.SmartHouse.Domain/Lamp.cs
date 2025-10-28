@@ -4,5 +4,6 @@
     {
         int a;
         int prova = 0;
+        int prova2 = 2;
     }
 }
