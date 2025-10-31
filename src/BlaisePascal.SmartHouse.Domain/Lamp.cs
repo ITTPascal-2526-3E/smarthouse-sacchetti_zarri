@@ -45,6 +45,16 @@
             is_on = false;
         }
 
+        public void adjustBrightness(int new_bright_perc)
+        {
+            if (int.IsPositive(new_bright_perc))
+            {
+                brightness_Perc = new_bright_perc;
+            }
+
+        }
+
+
     }
 }
     
