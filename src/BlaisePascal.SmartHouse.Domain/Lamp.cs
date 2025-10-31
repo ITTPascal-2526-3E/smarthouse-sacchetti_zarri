@@ -7,10 +7,10 @@
         private double power; //power is in Watt
         public bool is_on { get; set; } 
         private string brand;
-        public string lamp_id { get; } //lamp idenficator code
+        public string lamp_id { get; set; } //lamp idenficator code (il lamp id verra gestito da una classe esterna AssegnaLampId che controllera la univocità degli lamp_id della casa)
         public string color { get; set; }
         
-        public Lamp(double Power,string Brand,string Lamp_id,double Max_brightness)
+        public Lamp(double Power,string Brand,double Max_brightness)
         {
             if(double.IsPositive(Power))
             {
@@ -30,8 +30,8 @@
             brightness_Perc = 0;
             is_on = false;
             
-            //lamp_id = Lamp_id;
-           
+            
+        
         }
         public void turnOn()
         {
