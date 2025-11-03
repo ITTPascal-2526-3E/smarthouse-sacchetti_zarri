@@ -20,6 +20,7 @@ public class Program
             Console.WriteLine("Lamp brightness percentage: " + lamp.brightness_Perc);
             EcoLamp ecolamp = new EcoLamp(50.0, "Osram", 200.0);
             ecolamp.turnOn();
+            Console.WriteLine(ecolamp.startTime);
             Console.WriteLine("EcoLamp is on: " + ecolamp.is_on);
             Console.WriteLine("EcoLamp power: " + ecolamp.power + " Watt");
             Console.WriteLine("EcoLamp brand: " + ecolamp.brand);

@@ -14,7 +14,7 @@ namespace BlaisePascal.SmartHouse.Domain
         public bool is_on { get; set; }
         public string brand { get; }
         public Guid lamp_Id { get; set; } //lamp idenficator code (il lamp id verra gestito da una classe esterna AssegnaLampId che controllera la univocità degli lamp_id della casa)
-        DateTime? startTime;
+        public DateTime? startTime;
 
         public EcoLamp(double Power, string Brand, double Max_brightness)
         {
