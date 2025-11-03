@@ -1,5 +1,16 @@
 ﻿namespace BlaisePascal.SmartHouse.Domain
 {
+    public enum LampColor
+    {
+        White,
+        WarmWhite,
+        CoolWhite,
+        Red,
+        Green,
+        Blue,
+        Yellow,
+        Purple
+    }
     public class Lamp
     {
         public double max_brightness {  get; set; } //brightness is in Lumen
@@ -8,8 +19,8 @@
         public bool is_on { get; set; }
         public string brand { get; }
         public Guid lamp_Id { get; set; } //lamp idenficator code (il lamp id verra gestito da una classe esterna AssegnaLampId che controllera la univocità degli lamp_id della casa)
-        public string color { get; set; }
-        
+        public LampColor Color { get; set; }
+
         public Lamp(double Power,string Brand,double Max_brightness)
         {
             if(double.IsPositive(Power))
@@ -54,7 +65,14 @@
 
         }
 
-        
+        public void ChangeColor(LampColor newColor)
+        {
+            if (!is_on)
+            {             
+                return;
+            }
+            Color = newColor;
+        }
 
 
     }
