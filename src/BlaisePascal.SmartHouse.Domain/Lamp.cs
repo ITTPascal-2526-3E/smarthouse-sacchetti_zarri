@@ -58,8 +58,9 @@
 
         public void adjustBrightness(int new_bright_perc)
         {
-            if (int.IsPositive(new_bright_perc))
+            if (int.IsPositive(new_bright_perc)&&new_bright_perc<=100)
             {
+               
                 brightness_Perc = new_bright_perc;
             }
 

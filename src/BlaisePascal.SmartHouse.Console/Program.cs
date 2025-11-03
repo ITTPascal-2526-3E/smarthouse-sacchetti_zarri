@@ -14,6 +14,22 @@ public class Program
             Console.WriteLine("Lamp brand: " + lamp.brand);
             Console.WriteLine("Lamp brightness percentage: " + lamp.brightness_Perc);
             Console.WriteLine("Lamp max brightness: " + lamp.max_brightness + " Lumen");
-        }
+            lamp.ChangeColor(LampColor.White);
+            Console.WriteLine("LampColor: " + lamp.Color);
+            lamp.adjustBrightness(23);
+            Console.WriteLine("Lamp brightness percentage: " + lamp.brightness_Perc);
+            EcoLamp ecolamp = new EcoLamp(50.0, "Osram", 200.0);
+            ecolamp.turnOn();
+            Console.WriteLine("EcoLamp is on: " + ecolamp.is_on);
+            Console.WriteLine("EcoLamp power: " + ecolamp.power + " Watt");
+            Console.WriteLine("EcoLamp brand: " + ecolamp.brand);
+            Console.WriteLine("EcoLamp brightness percentage: " + ecolamp.brightness_Perc);
+            Console.WriteLine("EcoLamp max brightness: " + ecolamp.max_brightness + " Lumen");
+            ecolamp.adjustBrightness(23);
+            Console.WriteLine("EcoLamp brightness percentage: " + ecolamp.brightness_Perc);
+            ecolamp.ecoMode();
+            ecolamp.turnOff();
+
+    }
     }
 
