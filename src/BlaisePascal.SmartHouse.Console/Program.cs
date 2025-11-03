@@ -26,9 +26,10 @@ public class Program
             Console.WriteLine("EcoLamp brand: " + ecolamp.brand);
             Console.WriteLine("EcoLamp brightness percentage: " + ecolamp.brightness_Perc);
             Console.WriteLine("EcoLamp max brightness: " + ecolamp.max_brightness + " Lumen");
-            ecolamp.adjustBrightness(23);
+            ecolamp.adjustBrightness(99);
             Console.WriteLine("EcoLamp brightness percentage: " + ecolamp.brightness_Perc);
             ecolamp.ecoMode();
+            Console.WriteLine("EcoLamp brightness percentage: " + ecolamp.brightness_Perc);
             ecolamp.turnOff();
 
     }
