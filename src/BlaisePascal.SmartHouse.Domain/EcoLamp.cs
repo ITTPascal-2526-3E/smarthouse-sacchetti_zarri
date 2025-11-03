@@ -40,6 +40,7 @@ namespace BlaisePascal.SmartHouse.Domain
         }
         public void turnOn()
         {
+            ecoMode();
             brightness_Perc = 100;
             is_on = true;
         }
@@ -48,6 +49,7 @@ namespace BlaisePascal.SmartHouse.Domain
         {
             brightness_Perc = 0;
             is_on = false;
+
         }
 
         public void adjustBrightness(int new_bright_perc)
@@ -58,6 +60,31 @@ namespace BlaisePascal.SmartHouse.Domain
             }
 
         }
+            
+        public void ecoMode()
+        {
+            DateTime dateTime = DateTime.Now;
+            int ecoTimeH = dateTime.Hour;
+            int ecoTimeM = dateTime.Minute;
+            
+            if(dateTime.Hour == ecoTimeH +1)
+            {
+                if(dateTime.Minute == ecoTimeM)
+                {
+                    brightness_Perc = 70;
+                }
+            }
+
+            if (dateTime.Hour >= 22 || dateTime.Hour < 6)
+            {
+                brightness_Perc = 30;
+            }
+
+            
+
+
+        }
+
 
 
     }
