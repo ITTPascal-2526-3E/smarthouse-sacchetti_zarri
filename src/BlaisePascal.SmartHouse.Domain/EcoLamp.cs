@@ -14,7 +14,8 @@ namespace BlaisePascal.SmartHouse.Domain
         public bool is_on { get; set; }
         public string brand { get; }
         public Guid lamp_Id { get; set; } //lamp idenficator code (il lamp id verra gestito da una classe esterna AssegnaLampId che controllera la univocità degli lamp_id della casa)
-        
+        DateTime startTime;
+
         public EcoLamp(double Power, string Brand, double Max_brightness)
         {
             if (double.IsPositive(Power))
@@ -40,7 +41,7 @@ namespace BlaisePascal.SmartHouse.Domain
         }
         public void turnOn()
         {
-            ecoMode();
+            startEcoMode();
             brightness_Perc = 100;
             is_on = true;
         }
@@ -60,29 +61,28 @@ namespace BlaisePascal.SmartHouse.Domain
             }
 
         }
-            
+
+
+        public void startEcoMode()
+        {
+            startTime = DateTime.Now;
+        }
+
         public void ecoMode()
         {
-            DateTime dateTime = DateTime.Now;
-            int ecoTimeH = dateTime.Hour;
-            int ecoTimeM = dateTime.Minute;
-            
-            if(dateTime.Hour == ecoTimeH +1)
+            DateTime now = DateTime.Now;
+
+            // Dopo un’ora dall’attivazione
+            if ((now - startTime).TotalHours >= 1)
             {
-                if(dateTime.Minute == ecoTimeM)
-                {
-                    brightness_Perc = 70;
-                }
+                brightness_Perc = 70;
             }
 
-            if (dateTime.Hour >= 22 || dateTime.Hour < 6)
+            // Di notte
+            if (now.Hour >= 22 || now.Hour < 6)
             {
                 brightness_Perc = 30;
             }
-
-            
-
-
         }
 
 
