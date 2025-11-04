@@ -15,7 +15,7 @@
     {
         public double max_brightness {  get; set; } //brightness is in Lumen
         public int brightness_Perc {  get; set; } //bright perc
-        public double power; //power is in Watt
+        public double power; { get; private set; }//power is in Watt
         public bool is_on { get; set; }
         public string brand { get; }
         public Guid lamp_Id { get; set; } = Guid.NewGuid(); //lamp idenficator code (il lamp id verra gestito da una classe esterna AssegnaLampId che controllera la univocità degli lamp_id della casa)
