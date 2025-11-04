@@ -13,7 +13,7 @@ namespace BlaisePascal.SmartHouse.Domain
         public double power; //power is in Watt
         public bool is_on { get; set; }
         public string brand { get; }
-        public Guid lamp_Id { get; set; } = Guid.NewGuid(); //lamp idenficator code (il lamp id verra gestito da una classe esterna AssegnaLampId che controllera la univocità degli lamp_id della casa)
+        public Guid lamp_Id { get;private set; } = Guid.NewGuid(); //lamp idenficator code (il lamp id verra gestito da una classe esterna AssegnaLampId che controllera la univocità degli lamp_id della casa)
         public DateTime? startTime;
 
         public EcoLamp(double Power, string Brand, double Max_brightness)
@@ -88,9 +88,6 @@ namespace BlaisePascal.SmartHouse.Domain
                 brightness_Perc = 30;
             }
         }
-
-
-
 
 
     }
