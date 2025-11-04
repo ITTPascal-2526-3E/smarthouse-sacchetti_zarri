@@ -7,6 +7,7 @@ public class Program
         static void Main(string[] args)
         {
             Lamp lamp = new Lamp(60.0, "Philips", 800.0);
+            Lamp lamp2 = new Lamp(60.0, "Philips", 800.0);
             lamp.turnOn();
             lamp.turnOff();
             Console.WriteLine("Lamp is on: " + lamp.is_on);
@@ -18,6 +19,9 @@ public class Program
             Console.WriteLine("LampColor: " + lamp.Color);
             lamp.adjustBrightness(23);
             Console.WriteLine("Lamp brightness percentage: " + lamp.brightness_Perc);
+            Console.WriteLine(lamp.lamp_Id);
+            Console.WriteLine(lamp2.lamp_Id);
+
             EcoLamp ecolamp = new EcoLamp(50.0, "Osram", 200.0);
             ecolamp.turnOn();
             Console.WriteLine(ecolamp.startTime);
@@ -32,6 +36,6 @@ public class Program
             Console.WriteLine("EcoLamp brightness percentage: " + ecolamp.brightness_Perc);
             ecolamp.turnOff();
 
-    }
+        }
     }
 
