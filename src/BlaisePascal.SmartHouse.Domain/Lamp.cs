@@ -1,16 +1,6 @@
 ﻿namespace BlaisePascal.SmartHouse.Domain
 {
-    public enum LampColor
-    {
-        White,
-        WarmWhite,
-        CoolWhite,
-        Red,
-        Green,
-        Blue,
-        Yellow,
-        Purple
-    }
+    
     public class Lamp
     {
         public double max_brightness {  get; set; } //brightness is in Lumen
