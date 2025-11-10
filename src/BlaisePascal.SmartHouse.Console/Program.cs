@@ -36,10 +36,14 @@ public class Program
             Console.WriteLine("EcoLamp brightness percentage: " + ecolamp.brightness_Perc);
             ecolamp.turnOff();
 
-            AutoShutters autoShutters = new AutoShutters();
+            Shutters shutters = new Shutters();
+            ShuttersController autoShutters = new ShuttersController(shutters);
             autoShutters.Start();
-        Console.WriteLine(autoShutters.status);
+            Console.WriteLine("la persiana è aperta = ");
+            Console.WriteLine(shutters.is_open);
+            Console.WriteLine("la persiana è chiusa = ");
+            Console.WriteLine(shutters.is_closed);
 
-        }
+    }
     }
 
