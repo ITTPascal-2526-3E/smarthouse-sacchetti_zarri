@@ -36,6 +36,10 @@ public class Program
             Console.WriteLine("EcoLamp brightness percentage: " + ecolamp.brightness_Perc);
             ecolamp.turnOff();
 
+            AutoShutters autoShutters = new AutoShutters();
+            autoShutters.Start();
+        Console.WriteLine(autoShutters.status);
+
         }
     }
 
