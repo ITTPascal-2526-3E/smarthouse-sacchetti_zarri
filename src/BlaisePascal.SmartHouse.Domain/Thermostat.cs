@@ -12,6 +12,7 @@ namespace BlaisePascal.SmartHouse.Domain
         public double current_temperature { get; private set; }
         public double target_temperature { get; set; }
         public AirConditioner air_conditioner { get; set; } = new AirConditioner(20.0, 3);
+        public Radiator[] radiators { get; set; }= new Radiator[5];
         
         public Thermostat(double Current_temperature) { 
         current_temperature = Current_temperature;
@@ -19,8 +20,28 @@ namespace BlaisePascal.SmartHouse.Domain
 
         public void SwitchTargetTemperature(double Target_temperature)
         {
-            air_conditioner.switchTemperature(Target_temperature);
-            current_temperature = Target_temperature;
+            if (Target_temperature < current_temperature)
+            {
+                air_conditioner.switchTemperature(Target_temperature);
+                air_conditioner.turnOn();
+                current_temperature = Target_temperature;
+                air_conditioner.turnOff();
+            }
+            else
+            {
+                foreach (var rad in radiators)
+                {
+                    if( rad != null ) 
+                    {
+                        rad.setTemperature(Target_temperature);
+                        rad.turnOn();
+                        current_temperature = Target_temperature;
+                        rad.turnOff();
+                    }
+                    
+                }
+            }
+
         }
 
 

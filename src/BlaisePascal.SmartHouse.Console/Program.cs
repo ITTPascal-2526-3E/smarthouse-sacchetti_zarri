@@ -57,6 +57,12 @@ public class Program{
         air.switchTemperature(15.0);
         Console.WriteLine(air.target_temperature);
 
+
+        Thermostat thermostat = new Thermostat(18.0);
+        thermostat.radiators[0]=new Radiator(0);
+        thermostat.radiators[1] = new Radiator(0);
+        thermostat.SwitchTargetTemperature(22.0);
+        Console.WriteLine("Thermostat target temperature: " + thermostat.current_temperature);
     }
 }
 
