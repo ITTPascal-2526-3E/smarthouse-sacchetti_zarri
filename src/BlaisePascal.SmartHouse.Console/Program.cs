@@ -44,6 +44,9 @@ public class Program
             Console.WriteLine("la persiana è chiusa = ");
             Console.WriteLine(shutters.is_closed);
 
+            var webcam = new Webcam();
+            webcam.Start();
+
     }
     }
 
