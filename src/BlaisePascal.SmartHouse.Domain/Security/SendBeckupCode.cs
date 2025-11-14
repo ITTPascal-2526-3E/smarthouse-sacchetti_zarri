@@ -10,6 +10,7 @@ namespace BlaisePascal.SmartHouse.Domain.Security
         {
             Random rnd = new Random();
             int numero = rnd.Next(1, 1000);
+            
 
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("nikozarro@gmail.com");

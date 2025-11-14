@@ -43,8 +43,8 @@ public class Program{
         Console.WriteLine(shutters.is_open);
         Console.WriteLine("la persiana è chiusa = ");
         Console.WriteLine(shutters.is_closed);
-        //var webcam = new Webcam();
-        // webcam.start();
+        var webcam = new Webcam();
+        webcam.Start();
         AirConditioner air = new AirConditioner(10.0, 3);
         air.turnOn();
         Console.WriteLine(air.air_enabled);
