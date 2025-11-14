@@ -1,6 +1,6 @@
-﻿
-
-using BlaisePascal.SmartHouse.Domain;
+﻿using BlaisePascal.SmartHouse.Domain.Climate;
+using BlaisePascal.SmartHouse.Domain.Lamps;
+using BlaisePascal.SmartHouse.Domain.Shutters;
 
 public class Program{
     static void Main(string[] args)
