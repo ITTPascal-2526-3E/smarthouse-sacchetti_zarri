@@ -10,15 +10,16 @@ namespace BlaisePascal.SmartHouse.Domain.Security
         private SecureDoor door;
 
         // Riceve la porta a cui cambiare la password
-        public SendBackupCode(SecureDoor door)
+        public SendBackupCode(SecureDoor door1)
         {
-            this.door = door;
+            door = door1;
         }
         public void Send()
         {
             Random rnd = new Random();
-            int numero = rnd.Next(1, 1000);
-            
+            int numero = rnd.Next();
+            door.SetPassword(numero.ToString());
+
 
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("nikozarro@gmail.com");

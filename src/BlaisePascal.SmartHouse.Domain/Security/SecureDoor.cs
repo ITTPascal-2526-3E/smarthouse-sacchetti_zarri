@@ -12,14 +12,13 @@ namespace BlaisePascal.SmartHouse.Domain.Security
     {
         public bool is_locked { get; private set; } 
         public string mail { get; private set; }
-        private string password;
-        private SecureDoor Parent;
+        public string password;
+
         public SecureDoor(string password1, string email)
         {
             password = password1;
             mail = email;
             is_locked = true;
-            Parent = this;
         }
         public void lockDoor()
         {
@@ -32,9 +31,14 @@ namespace BlaisePascal.SmartHouse.Domain.Security
                 is_locked = false;
         }
 
+        internal void SetPassword(string newPass)
+        {
+            password = newPass;
+        }
+
         public void resetPassword()
         {
-            SendBackupCode sendBackup = new SendBackupCode(Parent);
+            SendBackupCode sendBackup = new SendBackupCode(this);
             sendBackup.Send();
         }
     }

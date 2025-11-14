@@ -64,13 +64,19 @@ public class Program{
         thermostat.radiators[1] = new Radiator(0);
         thermostat.SwitchTargetTemperature(22.0);
         Console.WriteLine("Thermostat target temperature: " + thermostat.current_temperature);
-        SecureDoor door = new SecureDoor("mypassword", "makozarri@gmail.com");
+
+
+        SecureDoor door = new SecureDoor("mypassword", "zarrimako@gmail.com");
         SendBackupCode sender = new SendBackupCode(door);
         door.lockDoor();
 
         door.unlockDoor("wrongpassword");
         Console.WriteLine("Door is locked: " + door.is_locked);
         door.resetPassword();
+
+        door.unlockDoor(Console.ReadLine());
+        Console.WriteLine("Door is locked: " + door.is_locked);
+
     }
 }
 
