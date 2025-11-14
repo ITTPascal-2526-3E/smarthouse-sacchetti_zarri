@@ -4,7 +4,7 @@ using System.Net.Mail;
 
 namespace BlaisePascal.SmartHouse.Domain.Security
 {
-    internal class SendBackupCode
+    public class SendBackupCode
     {
 
         private SecureDoor door;
