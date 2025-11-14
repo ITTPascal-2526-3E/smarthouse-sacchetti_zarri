@@ -1,5 +1,6 @@
 ﻿using BlaisePascal.SmartHouse.Domain.Climate;
 using BlaisePascal.SmartHouse.Domain.Lamps;
+using BlaisePascal.SmartHouse.Domain.Security;
 using BlaisePascal.SmartHouse.Domain.Shutters;
 
 public class Program{
@@ -63,6 +64,9 @@ public class Program{
         thermostat.radiators[1] = new Radiator(0);
         thermostat.SwitchTargetTemperature(22.0);
         Console.WriteLine("Thermostat target temperature: " + thermostat.current_temperature);
+
+        SendBackupCode sender = new SendBackupCode();
+        sender.Send();
     }
 }
 

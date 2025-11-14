@@ -1,0 +1,31 @@
+﻿using System;
+using System.Net;
+using System.Net.Mail;
+
+namespace BlaisePascal.SmartHouse.Domain.Security
+{
+    public class SendBackupCode
+    {
+        public void Send()
+        {
+            Random rnd = new Random();
+            int numero = rnd.Next(1, 1000);
+
+            MailMessage mail = new MailMessage();
+            mail.From = new MailAddress("nikozarro@gmail.com");
+            mail.To.Add("makozarri@gmail.com");
+            mail.Subject = "Numero random generato dal programma";
+            mail.Body = $"Il numero generato è: {numero}";
+
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.EnableSsl = true;
+
+            
+            smtp.Credentials = new NetworkCredential("nikozarro@gmail.com", "qhdd gedg cztf nily");
+
+            smtp.Send(mail);
+
+            Console.WriteLine("Email inviata con successo!");
+        }
+    }
+}
