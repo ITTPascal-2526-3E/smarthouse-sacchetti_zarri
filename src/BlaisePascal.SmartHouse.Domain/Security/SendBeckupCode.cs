@@ -4,8 +4,16 @@ using System.Net.Mail;
 
 namespace BlaisePascal.SmartHouse.Domain.Security
 {
-    public class SendBackupCode
+    internal class SendBackupCode
     {
+
+        private SecureDoor door;
+
+        // Riceve la porta a cui cambiare la password
+        public SendBackupCode(SecureDoor door)
+        {
+            this.door = door;
+        }
         public void Send()
         {
             Random rnd = new Random();
@@ -14,7 +22,7 @@ namespace BlaisePascal.SmartHouse.Domain.Security
 
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("nikozarro@gmail.com");
-            mail.To.Add("makozarri@gmail.com");
+            mail.To.Add(door.mail);
             mail.Subject = "Numero random generato dal programma";
             mail.Body = $"Il numero generato è: {numero}";
 

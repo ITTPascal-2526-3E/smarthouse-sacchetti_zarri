@@ -43,8 +43,8 @@ public class Program{
         Console.WriteLine(shutters.is_open);
         Console.WriteLine("la persiana è chiusa = ");
         Console.WriteLine(shutters.is_closed);
-        var webcam = new Webcam();
-        webcam.Start();
+        //var webcam = new Webcam();
+        //webcam.Start();
         AirConditioner air = new AirConditioner(10.0, 3);
         air.turnOn();
         Console.WriteLine(air.air_enabled);
@@ -64,9 +64,13 @@ public class Program{
         thermostat.radiators[1] = new Radiator(0);
         thermostat.SwitchTargetTemperature(22.0);
         Console.WriteLine("Thermostat target temperature: " + thermostat.current_temperature);
+        SecureDoor door = new SecureDoor("mypassword", "makozarri@gmail.com");
+        SendBackupCode sender = new SendBackupCode(door);
+        door.lockDoor();
 
-        SendBackupCode sender = new SendBackupCode();
-        sender.Send();
+        door.unlockDoor("wrongpassword");
+        Console.WriteLine("Door is locked: " + door.is_locked);
+        door.resetPassword();
     }
 }
 
