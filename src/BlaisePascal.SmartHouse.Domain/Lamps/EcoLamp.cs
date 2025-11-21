@@ -35,9 +35,6 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
 
             brightness_Perc = 0;
             is_on = false;
-
-
-
         }
         public void turnOn()
         {
@@ -51,16 +48,14 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
             brightness_Perc = 0;
             is_on = false;
             startTime = null;
-
         }
 
         public void adjustBrightness(int new_bright_perc)
         {
-            if (int.IsPositive(new_bright_perc))
-            {
-                brightness_Perc = new_bright_perc;
-            }
-
+            if (new_bright_perc<0 || new_bright_perc>100)
+                throw new ArgumentException("Brightness percentage must be positive and not grather than 100");
+                      
+            brightness_Perc = new_bright_perc;
         }
 
 

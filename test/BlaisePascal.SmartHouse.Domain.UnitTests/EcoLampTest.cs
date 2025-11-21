@@ -1,4 +1,5 @@
 using BlaisePascal.SmartHouse.Domain.Lamps;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BlaisePascal.SmartHouse.Domain.UnitTests
 {
@@ -51,15 +52,6 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests
             Assert.Equal(65, lamp.brightness_Perc);
         }
 
-        [Fact]
-        public void AdjustBrightness_NonPositiveValue_ShouldNotChangeBrightness()
-        {
-            EcoLamp lamp = new EcoLamp(10, "Xiaomi", 750);
-
-            lamp.adjustBrightness(-10);
-
-            Assert.Equal(0, lamp.brightness_Perc); 
-        }
 
         [Fact]
         public void Properties_IdShouldBeDifferent()
@@ -71,6 +63,23 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests
             Assert.Equal("A", lamp2.brand);
 
             Assert.NotEqual(lamp1.lamp_Id, lamp2.lamp_Id);
+
+        }
+
+        [Fact]
+        public void adjustBrightness_intNegative_exception()
+        {
+            EcoLamp lamp1 = new EcoLamp(10, "A", 500);
+            Assert.Throws<ArgumentException>(() => lamp1.adjustBrightness(-20));
+
+        }
+
+        [Fact]
+        public void adjustBrightness_brightnessIsGratherThan100_exception()
+        {
+            EcoLamp lamp1 = new EcoLamp(10, "A", 500);
+
+            Assert.Throws<ArgumentException>(() => lamp1.adjustBrightness(120));
 
         }
     }
