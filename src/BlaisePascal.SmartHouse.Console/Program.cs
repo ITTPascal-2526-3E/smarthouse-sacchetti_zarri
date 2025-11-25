@@ -70,9 +70,9 @@ public class Program{
         SendBackupCode sender = new SendBackupCode(door);
         door.lockDoor();
 
-        door.unlockDoor("wrongpassword");
+        door.unlockDoor(Console.ReadLine());
         Console.WriteLine("Door is locked: " + door.is_locked);
-        door.resetPassword();
+        //door.resetPassword();
 
         door.unlockDoor(Console.ReadLine());
         Console.WriteLine("Door is locked: " + door.is_locked);
