@@ -25,8 +25,9 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
             }
 
             lowest_temperature = Lowest_temperature;
+            last_air_intensity = air_intensity;
         }
-
+        
 
         public void turnOn(){
             air_enabled = true;
