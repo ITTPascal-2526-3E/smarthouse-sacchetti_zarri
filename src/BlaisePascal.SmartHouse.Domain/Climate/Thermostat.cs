@@ -19,7 +19,7 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
         }
 
         public void SwitchTargetTemperature(double Target_temperature)
-        {
+        { 
             if (Target_temperature < current_temperature)
             {
                 air_conditioner.switchTemperature(Target_temperature);
@@ -29,17 +29,22 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
             }
             else
             {
-                foreach (var rad in radiators)
+                if (radiators.All(r => r != null))
                 {
-                    if( rad != null ) 
+                    foreach (var rad in radiators)
                     {
-                        rad.setTemperature(Target_temperature);
-                        rad.turnOn();
-                        current_temperature = Target_temperature;
-                        rad.turnOff();
+
+                        if (rad != null)
+                        {
+                            rad.setTemperature(Target_temperature);
+                            rad.turnOn();
+                            current_temperature = Target_temperature;
+                            rad.turnOff();
+                        }
+
                     }
-                    
                 }
+                else throw new Exception();
             }
 
         }
