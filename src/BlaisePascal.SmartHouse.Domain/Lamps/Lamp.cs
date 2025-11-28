@@ -12,6 +12,7 @@
         public LampColor Color { get; set; }
 
         public DateTime? startTime;
+        public DateTime lastModifiedAtUtc;
 
 
         public Lamp(double Power,string Brand,double Max_brightness)
@@ -33,15 +34,17 @@
 
             brightness_Perc = 0;
             is_on = false;
-            
-            
-        
+            lastModifiedAtUtc = DateTime.Now;
+
+
+
         }
         public void turnOn()
         {
             brightness_Perc = 100;
             is_on = true;
             startTime = DateTime.Now;
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public void turnOff()
@@ -49,6 +52,7 @@
             brightness_Perc = 0;
             is_on = false;
             startTime = null;
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public void adjustBrightness(int new_bright_perc)
@@ -67,6 +71,11 @@
                 return;
             }
             Color = newColor;
+        }
+
+        public void LastModifiedAtUtc()
+        {
+            Console.WriteLine($"Last modified at: {lastModifiedAtUtc}");
         }
 
 
