@@ -6,59 +6,16 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Lamps
 {
-    public class EcoLamp
+    public class EcoLamp : Lamp
     {
-        public double max_brightness { get; set; } //brightness is in Lumen
-        public int brightness_Perc { get; set; } //bright perc
-        public double power; //power is in Watt
-        public bool is_on { get; set; }
-        public string brand { get; }
+        
+       
         public Guid lamp_Id { get;private set; } = Guid.NewGuid(); //lamp idenficator code (il lamp id verra gestito da una classe esterna AssegnaLampId che controllera la univocità degli lamp_id della casa)
-        public DateTime? startTime;
 
-        public EcoLamp(double Power, string Brand, double Max_brightness)
+        public EcoLamp(double Power, string Brand, double Max_brightness): base(Power, Brand, Max_brightness)
         {
-            if (double.IsPositive(Power))
-            {
-                power = Power;
-            }
-
-            if (!string.IsNullOrEmpty(Brand))
-            {
-                brand = Brand;
-            }
-
-            if (double.IsPositive(Max_brightness))
-            {
-                max_brightness = Max_brightness;
-            }
-
-            brightness_Perc = 0;
-            is_on = false;
+           
         }
-        public void turnOn()
-        {
-            startEcoMode();
-            brightness_Perc = 100;
-            is_on = true;
-        }
-
-        public void turnOff()
-        {
-            brightness_Perc = 0;
-            is_on = false;
-            startTime = null;
-        }
-
-        public void adjustBrightness(int new_bright_perc)
-        {
-            if (new_bright_perc<0 || new_bright_perc>100)
-                throw new ArgumentException("Brightness percentage must be positive and not grather than 100");
-                      
-            brightness_Perc = new_bright_perc;
-        }
-
-
         public void startEcoMode()
         {
             startTime = DateTime.Now;

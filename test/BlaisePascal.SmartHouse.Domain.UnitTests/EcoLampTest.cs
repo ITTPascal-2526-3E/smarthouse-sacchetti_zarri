@@ -79,7 +79,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests
         {
             EcoLamp lamp1 = new EcoLamp(10, "A", 500);
 
-            Assert.Throws<ArgumentException>(() => lamp1.adjustBrightness(120));
+            Assert.Throws<ArgumentException>(() => lamp1.adjustBrightness(120)); 
 
         }
     }

@@ -62,9 +62,9 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests
         {
             Lamp lamp = new Lamp(10, "Xiaomi", 750);
 
-            lamp.adjustBrightness(-10);
+            Assert.Throws<ArgumentException>(() => lamp.adjustBrightness(-10));
 
-            Assert.Equal(0, lamp.brightness_Perc); 
+
         }
 
         [Fact]

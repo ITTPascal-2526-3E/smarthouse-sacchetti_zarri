@@ -11,7 +11,9 @@
         public Guid lamp_Id { get; set; } = Guid.NewGuid(); //lamp idenficator code (il lamp id verra gestito da una classe esterna AssegnaLampId che controllera la univocità degli lamp_id della casa)
         public LampColor Color { get; set; }
 
-        
+        public DateTime? startTime;
+
+
         public Lamp(double Power,string Brand,double Max_brightness)
         {
             if(double.IsPositive(Power))
@@ -39,21 +41,22 @@
         {
             brightness_Perc = 100;
             is_on = true;
+            startTime = DateTime.Now;
         }
 
         public void turnOff()
         {
             brightness_Perc = 0;
             is_on = false;
+            startTime = null;
         }
 
         public void adjustBrightness(int new_bright_perc)
         {
             if (int.IsPositive(new_bright_perc)&&new_bright_perc<=100)
             {
-               
                 brightness_Perc = new_bright_perc;
-            }
+            }else throw new ArgumentException("Brightness percentage must be between 0 and 100.");
 
         }
 

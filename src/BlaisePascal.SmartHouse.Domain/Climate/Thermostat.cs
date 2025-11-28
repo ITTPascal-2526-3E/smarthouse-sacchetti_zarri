@@ -29,7 +29,11 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
             }
             else
             {
-                if (radiators.All(r => r != null))
+                if (radiators.All(r => r == null))
+                {
+                    throw new Exception();
+                }
+                else
                 {
                     foreach (var rad in radiators)
                     {
@@ -44,7 +48,6 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
 
                     }
                 }
-                else throw new Exception();
             }
 
         }
