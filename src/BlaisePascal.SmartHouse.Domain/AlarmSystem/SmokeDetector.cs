@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain
 {
-    public class SmokeDetector
+    public class SmokeDetector : Device
     {
         public bool smoke_detectet { get; private set; }
         public bool smoke { get; set; }
@@ -18,6 +18,7 @@ namespace BlaisePascal.SmartHouse.Domain
             {
                 smoke_detectet = true;
             }
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public void alarm()

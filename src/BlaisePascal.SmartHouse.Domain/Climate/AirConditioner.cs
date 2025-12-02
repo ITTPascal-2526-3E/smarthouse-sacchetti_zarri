@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Climate
 {
-    public class AirConditioner
+    public class AirConditioner : Device
     {
         public double lowest_temperature {get; } // temperature is in degrees celsius
         public int air_intensity { get; set; }
         public bool air_enabled { get; set; }
         public int last_air_intensity { get; private set; }
         public double target_temperature { get; private set;  }
-        public Guid airConditioner_Id { get; set; } = Guid.NewGuid();
 
         public AirConditioner(double Lowest_temperature, int Air_intensity)
         {
@@ -32,17 +31,20 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
         public void turnOn(){
             air_enabled = true;
             air_intensity = last_air_intensity;
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public void turnOff()
         {
             air_enabled = false;
             last_air_intensity = air_intensity;
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public void switchIntensity(int intensity)
         {
             air_intensity = intensity;
+            lastModifiedAtUtc = DateTime.Now;
         }
 
 
@@ -51,6 +53,7 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
             if (temperature > lowest_temperature){
                 target_temperature = temperature;
             }
+            lastModifiedAtUtc = DateTime.Now;
         }
 
 

@@ -1,19 +1,16 @@
 ﻿namespace BlaisePascal.SmartHouse.Domain.Lamps
 {
     
-    public class Lamp
+    public class Lamp : Device
     {
         public double max_brightness {  get; set; } //brightness is in Lumen
         public int brightness_Perc {  get; set; } //bright perc
         public double power { get; private set; }//power is in Watt
         public bool is_on { get; set; }
         public string brand { get; }
-        public Guid lamp_Id { get; set; } = Guid.NewGuid(); //lamp idenficator code (il lamp id verra gestito da una classe esterna AssegnaLampId che controllera la univocità degli lamp_id della casa)
         public LampColor Color { get; set; }
 
         public DateTime? startTime;
-        public DateTime lastModifiedAtUtc;
-
 
         public Lamp(double Power,string Brand,double Max_brightness)
         {
@@ -61,7 +58,7 @@
             {
                 brightness_Perc = new_bright_perc;
             }else throw new ArgumentException("Brightness percentage must be between 0 and 100.");
-
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public void ChangeColor(LampColor newColor)
@@ -71,14 +68,8 @@
                 return;
             }
             Color = newColor;
+            lastModifiedAtUtc = DateTime.Now;
         }
-
-        public void LastModifiedAtUtc()
-        {
-            Console.WriteLine($"Last modified at: {lastModifiedAtUtc}");
-        }
-
-
     }
 }
     

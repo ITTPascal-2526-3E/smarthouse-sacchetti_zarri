@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Climate
 {
-    public class Thermostat
+    public class Thermostat : Device
     {
-        public Guid thermostat_Id { get; set; } = new Guid();
         public double current_temperature { get; private set; }
         public double target_temperature { get; set; }
         public AirConditioner air_conditioner { get; set; } = new AirConditioner(20.0, 3);
@@ -26,6 +25,7 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
                 air_conditioner.turnOn();
                 current_temperature = Target_temperature;
                 air_conditioner.turnOff();
+                lastModifiedAtUtc = DateTime.Now;
             }
             else
             {
@@ -47,6 +47,7 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
                         }
 
                     }
+                    lastModifiedAtUtc = DateTime.Now;
                 }
             }
 

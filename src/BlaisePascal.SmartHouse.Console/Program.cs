@@ -19,8 +19,9 @@ public class Program{
         Console.WriteLine("LampColor: " + lamp.Color);
         lamp.adjustBrightness(23);
         Console.WriteLine("Lamp brightness percentage: " + lamp.brightness_Perc);
-        Console.WriteLine(lamp.lamp_Id);
-        Console.WriteLine(lamp2.lamp_Id);
+        Console.WriteLine(lamp.deviceId);
+        Console.WriteLine(lamp.lastModifiedAtUtc);
+        Console.WriteLine(lamp2.deviceId);
 
         EcoLamp ecolamp = new EcoLamp(50.0, "Osram", 200.0);
         ecolamp.turnOn();
@@ -47,6 +48,8 @@ public class Program{
         //webcam.Start();
         AirConditioner air = new AirConditioner(10.0, 3);
         air.turnOn();
+        Console.WriteLine(air.lastModifiedAtUtc);
+        Console.WriteLine(air.cratedTime);
         Console.WriteLine(air.air_enabled);
         Console.WriteLine(air.air_intensity);
         air.switchIntensity(2);
