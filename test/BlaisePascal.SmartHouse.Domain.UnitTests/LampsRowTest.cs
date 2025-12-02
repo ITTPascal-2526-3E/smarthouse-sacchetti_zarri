@@ -15,7 +15,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests
         public void AddLamp_ShouldIncreaseLampCount()
         {
             LampsRow row = new LampsRow();
-
+            
             row.addLamp(10, "Philips", 800);
             row.addLamp(12, "Xiaomi", 700);
 
