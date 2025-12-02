@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Lamps
 {
-    public class LampsRow
+    public class LampsRow : Device
     {
         public List<Lamp> lamps = new List<Lamp>();
         public void addLamp(double power3,string brand3,double max_brightness3)
@@ -20,6 +20,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
             {
                 lamp.turnOn();
             }
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public void swithcRowOff()
@@ -29,6 +30,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
             {
                lamp.turnOff();
             }
+            lastModifiedAtUtc = DateTime.Now;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
         public void startEcoMode()
         {
             startTime = DateTime.Now;
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public void ecoMode()
@@ -35,6 +36,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
             {
                 brightness_Perc = 30;
             }
+            lastModifiedAtUtc = DateTime.Now;
         }
 
 
