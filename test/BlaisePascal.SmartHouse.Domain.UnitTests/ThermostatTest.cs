@@ -23,7 +23,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests
 			thermostat.SwitchTargetTemperature(5.0);
 			Assert.Equal(5.0, thermostat.current_temperature);
 		}
-
+		
 		[Fact]
 		public void SwitchTargetTemperature_BiggerTemperature_ShouldTurnOnThermostat()
 		{
