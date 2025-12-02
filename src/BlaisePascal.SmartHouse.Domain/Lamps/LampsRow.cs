@@ -8,10 +8,10 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
 {
     public class LampsRow
     {
-        List<Lamp> lamps;
-        public void addLamp(double power,string brand,double max_brightness)
+        public List<Lamp> lamps = new List<Lamp>();
+        public void addLamp(double power3,string brand3,double max_brightness3)
         {
-            lamps.Add(new Lamp(power,brand,max_brightness));
+            lamps.Add(new Lamp(power3,brand3,max_brightness3));
         }
 
         public void swithcRowOn()
@@ -24,9 +24,10 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
 
         public void swithcRowOff()
         {
+            
             foreach (var lamp in lamps)
             {
-                lamp.turnOff();
+               lamp.turnOff();
             }
         }
     }

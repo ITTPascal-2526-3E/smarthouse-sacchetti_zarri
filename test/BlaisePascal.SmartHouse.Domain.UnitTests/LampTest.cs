@@ -19,7 +19,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests
             Assert.Equal(800, lamp.max_brightness);
             Assert.False(lamp.is_on);
             Assert.Equal(0, lamp.brightness_Perc);
-            Assert.NotEqual(Guid.Empty, lamp.lamp_Id);
+            Assert.NotEqual(Guid.Empty, lamp.deviceId);
         }
 
 
@@ -76,7 +76,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests
             Assert.Equal("A", lamp1.brand);
             Assert.Equal("A", lamp2.brand);
 
-            Assert.NotEqual(lamp1.lamp_Id, lamp2.lamp_Id);
+            Assert.NotEqual(lamp1.deviceId, lamp2.deviceId);
 
         }
 
