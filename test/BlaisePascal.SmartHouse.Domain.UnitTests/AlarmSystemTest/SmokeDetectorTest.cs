@@ -2,7 +2,6 @@
 using System.Reflection;
 using BlaisePascal.SmartHouse.Domain;
 
-// --- Contenuto del file SmokeDetectorTest.cs ---
 namespace BlaisePascal.SmartHouse.Domain.UnitTests.Test
 {
     public class SmokeDetectorTest
