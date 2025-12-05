@@ -37,6 +37,11 @@ public class Program{
         Console.WriteLine("EcoLamp brightness percentage: " + ecolamp.brightness_Perc);
         ecolamp.turnOff();
 
+        LampsRow lampsRow = new LampsRow();
+        lampsRow.addLamp(23.4,"ciao",100.0);
+        lampsRow.swithcRowOn();
+        Console.WriteLine("LampsRow first lamp is on: " + lampsRow.lamps[0].is_on);
+
         Shutters shutters = new Shutters();
         ShuttersController autoShutters = new ShuttersController(shutters);
         autoShutters.Start();
