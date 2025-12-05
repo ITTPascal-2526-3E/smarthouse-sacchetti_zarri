@@ -10,8 +10,6 @@
         public string brand { get; }
         public LampColor Color { get; set; }
 
-        public DateTime? startTime;
-
         public Lamp(double Power,string Brand,double Max_brightness)
         {
             if(double.IsPositive(Power))
@@ -36,19 +34,17 @@
 
 
         }
-        public void turnOn()
+        public virtual void turnOn()
         {
             brightness_Perc = 100;
             is_on = true;
-            startTime = DateTime.Now;
             lastModifiedAtUtc = DateTime.Now;
         }
 
-        public void turnOff()
+        public virtual void turnOff()
         {
             brightness_Perc = 0;
             is_on = false;
-            startTime = null;
             lastModifiedAtUtc = DateTime.Now;
         }
 

@@ -8,9 +8,24 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
 {
     public class EcoLamp : Lamp
     {
+        public DateTime? startTime;
+
         public EcoLamp(double Power, string Brand, double Max_brightness): base(Power, Brand, Max_brightness)
         {
            
+        }
+
+        public override void turnOn()
+        {
+            base.turnOn();
+            startTime = DateTime.Now;
+        }
+
+        public override void turnOff()
+        {
+            base.turnOff();
+            startTime = null;
+            
         }
         public void startEcoMode()
         {
