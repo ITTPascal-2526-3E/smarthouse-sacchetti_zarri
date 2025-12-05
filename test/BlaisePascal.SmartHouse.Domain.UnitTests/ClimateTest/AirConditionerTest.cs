@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlaisePascal.SmartHouse.Domain.Climate;
-namespace BlaisePascal.SmartHouse.Domain.UnitTests
+namespace BlaisePascal.SmartHouse.Domain.UnitTests.ClimateTest
 {
     public class AirConditionerTest
     {

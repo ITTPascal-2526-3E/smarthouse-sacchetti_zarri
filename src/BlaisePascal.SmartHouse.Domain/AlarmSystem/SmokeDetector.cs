@@ -25,7 +25,6 @@ namespace BlaisePascal.SmartHouse.Domain
         {
             if (smoke_detectet == true)
             {
-
                 for (int i = 0; i < 2; i++)
                 {
                     Thread.Sleep(1000); //simulate delay before alarm

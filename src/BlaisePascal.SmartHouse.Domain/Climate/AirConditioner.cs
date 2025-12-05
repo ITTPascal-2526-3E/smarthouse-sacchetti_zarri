@@ -10,9 +10,9 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
 {
     public class AirConditioner : Device
     {
-        public double lowest_temperature {get; } // temperature is in degrees celsius
-        public int air_intensity { get; set; }
-        public bool air_enabled { get; set; }
+        public double lowest_temperature { get; protected set; } // temperature is in degrees celsius
+        public int air_intensity { get; protected set; }
+        public bool air_enabled { get; protected  set; }
         public int last_air_intensity { get; private set; }
         public double target_temperature { get; private set;  }
 

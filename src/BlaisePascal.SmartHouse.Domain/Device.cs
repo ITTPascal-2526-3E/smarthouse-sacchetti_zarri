@@ -8,9 +8,9 @@ namespace BlaisePascal.SmartHouse.Domain
 {
     public class Device
     {
-        public Guid deviceId { get; set; } = Guid.NewGuid();
-        public DateTime cratedTime { get; set; } = DateTime.UtcNow;
-        public DateTime lastModifiedAtUtc { get; set; }
+        public Guid deviceId { get; protected set; } = Guid.NewGuid();
+        public DateTime cratedTime { get; protected set; } = DateTime.UtcNow;
+        public DateTime lastModifiedAtUtc { get; protected set; }
 
     }
 }

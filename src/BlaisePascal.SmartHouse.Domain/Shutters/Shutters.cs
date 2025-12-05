@@ -8,8 +8,7 @@ namespace BlaisePascal.SmartHouse.Domain.Shutters
 {
     public class Shutters
     {
-           
-        public bool is_open {  get; set; } 
+        public bool is_open { get; set; } 
         public bool is_closed { get; set; }
         public Guid shutter_Id { get; set; } = Guid.NewGuid();
         public ShuttersController autoShutters { get; }

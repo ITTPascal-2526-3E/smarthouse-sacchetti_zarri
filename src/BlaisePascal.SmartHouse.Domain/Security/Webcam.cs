@@ -7,7 +7,7 @@ public class Webcam
     private Window _window;
     private Mat _frame;
     private bool _isRunning = false;
-    public Guid cam_Id { get; set; } = Guid.NewGuid();
+    public Guid cam_Id { get; protected set; } = Guid.NewGuid();
 
     public Webcam(int cameraIndex = 0)
     {

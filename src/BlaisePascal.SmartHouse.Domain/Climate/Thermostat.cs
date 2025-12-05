@@ -9,12 +9,12 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
     public class Thermostat : Device
     {
         public double current_temperature { get; private set; }
-        public double target_temperature { get; set; }
-        public AirConditioner air_conditioner { get; set; } = new AirConditioner(20.0, 3);
-        public Radiator[] radiators { get; set; }= new Radiator[5];
+        public double target_temperature { get; protected set; }
+        public AirConditioner air_conditioner { get; protected set; } = new AirConditioner(20.0, 3);
+        public Radiator[] radiators { get; protected set; } = new Radiator[5];
         
         public Thermostat(double Current_temperature) { 
-        current_temperature = Current_temperature;
+            current_temperature = Current_temperature;
         }
 
         public void SwitchTargetTemperature(double Target_temperature)

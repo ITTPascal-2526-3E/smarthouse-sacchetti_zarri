@@ -12,7 +12,7 @@ namespace BlaisePascal.SmartHouse.Domain.Security
     {
         public bool is_locked { get; private set; } 
         public string mail { get; private set; }
-        public string password;
+        public string password { get; protected set; }
 
         public SecureDoor(string password1, string email)
         {

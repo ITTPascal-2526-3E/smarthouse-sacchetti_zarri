@@ -8,9 +8,9 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
 {
     public class Radiator : Device 
     {
-        public double temperature { get; set; } // temperature is in degrees celsius
-        public bool is_on { get; set; }
-        public bool is_off { get; set; }
+        public double temperature { get; protected set; } // temperature is in degrees celsius
+        public bool is_on { get; protected set; }
+        public bool is_off { get; protected set; }
 
         public Radiator(double Temperature)
         {
@@ -28,6 +28,7 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
             is_on=true;
             lastModifiedAtUtc = DateTime.Now;
         }
+
         public void turnOff()
         {
             is_off=true;

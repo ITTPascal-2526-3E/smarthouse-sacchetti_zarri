@@ -1,7 +1,7 @@
 using BlaisePascal.SmartHouse.Domain.Lamps;
 using System.Security.Cryptography.X509Certificates;
 
-namespace BlaisePascal.SmartHouse.Domain.UnitTests
+namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
 {
     public class EcoLampTest
     {
@@ -80,7 +80,6 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests
             EcoLamp lamp1 = new EcoLamp(10, "A", 500);
 
             Assert.Throws<ArgumentException>(() => lamp1.adjustBrightness(120)); 
-
         }
     }
 }
