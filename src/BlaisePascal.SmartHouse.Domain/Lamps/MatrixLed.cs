@@ -18,7 +18,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
             {
                 for(int j = 0;  j < columns; j++)
                 {
-                    matrix[i, j] = led;
+                    matrix[i, j] = new Led(led.power, led.brand, led.max_brightness); ;
                 }
             }
             lastModifiedAtUtc = DateTime.Now;
@@ -62,22 +62,19 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
 
         public void PatternCheckerBoard()
         {
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            for (int i = 0; i < 3; i++)
             {
-                if(i % 2 == 0)
+                for (int j = 0; j < 3; j++)
                 {
-                    for (int j = 1; j < matrix.GetLength(1); j+=2)
+                    if ((i + j) % 2 == 1)
                     {
                         matrix[i, j].turnOn();
+                    }
+                    else
+                    {
+                        matrix[i,j].turnOff();
                     }
                 }
-                else
-                {
-                    for (int j = 0; j < matrix.GetLength(1); j += 2)
-                    {
-                        matrix[i, j].turnOn();
-                    }
-                }         
             }
             lastModifiedAtUtc = DateTime.Now;
         }
