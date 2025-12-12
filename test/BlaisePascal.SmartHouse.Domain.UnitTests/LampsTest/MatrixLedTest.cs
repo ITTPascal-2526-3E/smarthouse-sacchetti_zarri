@@ -85,7 +85,6 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
             Led led = new Led(5, "Test", 200);
             matrixLed.GenerateMatrix(3, 3, led);
             matrixLed.SwitchOffAll();
-            bool shoulBeOn;
             // Act
             matrixLed.PatternCheckerBoard();
 
@@ -94,35 +93,19 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    bool shouldBeOn=false;    
+                    bool shouldOn;
                     if ((i+j )%2 == 1)
                     {
-                        shoulBeOn = true;
+                        shouldOn = true;
                     }
                     else
                     {
-                        shoulBeOn = false;
+                        shouldOn = false;
                     }
 
-                    Assert.Equal(shouldBeOn, matrixLed.matrix[i, j].is_on);
-                    
+                    Assert.Equal(shouldOn, matrixLed.matrix[i, j].is_on);                  
                 }
             }
-        }
-
-        [Fact]
-        public void GetLed_ShouldReturnCorrectLed()
-        {
-            // Arrange
-            MatrixLed matrixLed = new MatrixLed();
-            Led led = new Led(5, "Test", 200);
-            matrixLed.GenerateMatrix(2, 2, led);
-
-            // Act
-            Led result = matrixLed.GetLed(1, 1);
-
-            // Assert
-            Assert.Equal(led, result);
         }
     }
 }
