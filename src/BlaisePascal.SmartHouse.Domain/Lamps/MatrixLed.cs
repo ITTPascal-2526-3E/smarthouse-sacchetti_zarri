@@ -8,7 +8,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
 {
     public class MatrixLed : Device
     {
-        Led[,] matrix;
+        public Led[,] matrix;
 
         public void GenerateMatrix(int rows, int columns, Led led) 
         {    
@@ -21,6 +21,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
                     matrix[i, j] = led;
                 }
             }
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public void SwitchOnAll()
@@ -32,66 +33,53 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
                     matrix[i,j].turnOn();
                 }
             }
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public void SwitchOffAll()
         {
-            for (int i = 0; ; i++)
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                for (int j = 0; j <= matrix.GetLength(2); j++)
+                for (int j = 0; j < matrix.GetLength(1); j++)
                 {
-                    matrix[i,j].turnOff();
+                    matrix[i, j].turnOff();
                 }
             }
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public void SetIntensityAll(int intensity)
         {
-            for (int i = 0; ; i++)
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                for (int j = 0; j <= matrix.GetLength(2); j++)
+                for (int j = 0; j < matrix.GetLength(1); j++)
                 {
                     matrix[i, j].adjustBrightness(intensity);
                 }
             }
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public void PatternCheckerBoard()
         {
-            for (int i = 0; ; i++)
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                for (int j = 0; j <= matrix.GetLength(2); j++)
+                if(i % 2 == 0)
                 {
-                    matrix[i, j].turnOn();
-                }
-            }
-
-            if (matrix.GetLength(1) % 2 == 0)
-            {
-                for (int i = 0; ; i++)
-                {
-                    for (int j = 0; j <= matrix.GetLength(2); j++)
+                    for (int j = 1; j < matrix.GetLength(1); j+=2)
                     {
-                        if (j % 2 == 0)
-                            matrix[i, j].turnOff();
+                        matrix[i, j].turnOn();
                     }
                 }
-            }
-            else
-            {
-                for (int i = 0; ; i++)
+                else
                 {
-                    for (int j = 0; j <= matrix.GetLength(2); j++)
+                    for (int j = 0; j < matrix.GetLength(1); j += 2)
                     {
-                        if ((i % 2) == (j % 2))
-                        {
-                            matrix[i, j].turnOn();
-                        }
-                         
+                        matrix[i, j].turnOn();
                     }
-                }
+                }         
             }
-
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public Led GetLed(int rows, int columns)

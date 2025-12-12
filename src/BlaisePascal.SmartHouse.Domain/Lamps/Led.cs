@@ -41,14 +41,16 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
 
         public virtual void turnOn()
         {
-        brightness_Perc = 100;
-        is_on = true;
+            brightness_Perc = 100;
+            is_on = true;
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public virtual void turnOff()
         {
             brightness_Perc = 0;
             is_on = false;
+            lastModifiedAtUtc = DateTime.Now;
         }
 
         public void adjustBrightness(int new_bright_perc)
@@ -56,6 +58,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
             if (int.IsPositive(new_bright_perc) && new_bright_perc <= 100)
             {
                 brightness_Perc = new_bright_perc;
+                lastModifiedAtUtc = DateTime.Now;
             }
             else
                 throw new ArgumentException("Brightness percentage must be between 0 and 100.");
