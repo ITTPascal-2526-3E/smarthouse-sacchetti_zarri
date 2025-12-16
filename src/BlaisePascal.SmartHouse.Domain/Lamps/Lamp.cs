@@ -1,15 +1,8 @@
 ﻿namespace BlaisePascal.SmartHouse.Domain.Lamps
 {
     
-    public class Lamp : Device
+    public class Lamp : LampModel
     {
-        public double max_brightness {  get; protected set; } //brightness is in Lumen
-        public int brightness_Perc {  get; protected set; } //bright perc
-        public double power { get; private set; }//power is in Watt
-        public bool is_on { get; protected set; }
-        public string brand { get; protected set;}
-        public LampColor Color { get; protected set; }
-
         public Lamp(double Power,string Brand,double Max_brightness)
         {
             if(double.IsPositive(Power))
@@ -30,18 +23,16 @@
             brightness_Perc = 0;
             is_on = false;
             lastModifiedAtUtc = DateTime.Now;
-
-
-
         }
-        public virtual void turnOn()
+
+        public override void turnOn()
         {
             brightness_Perc = 100;
             is_on = true;
             lastModifiedAtUtc = DateTime.Now;
         }
 
-        public virtual void turnOff()
+        public override void turnOff()
         {
             brightness_Perc = 0;
             is_on = false;

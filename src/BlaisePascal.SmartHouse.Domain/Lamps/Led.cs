@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Lamps
 {
-    public class Led : Device
+    public class Led : LampModel
     {
         public double max_brightness { get; protected set; } //brightness is in Lumen
         public int brightness_Perc { get; protected set; } //bright perc

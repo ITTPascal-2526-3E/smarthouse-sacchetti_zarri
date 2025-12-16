@@ -28,13 +28,13 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
         }
         
 
-        public void turnOn(){
+        public override void turnOn(){
             air_enabled = true;
             air_intensity = last_air_intensity;
             lastModifiedAtUtc = DateTime.Now;
         }
 
-        public void turnOff()
+        public override void turnOff()
         {
             air_enabled = false;
             last_air_intensity = air_intensity;

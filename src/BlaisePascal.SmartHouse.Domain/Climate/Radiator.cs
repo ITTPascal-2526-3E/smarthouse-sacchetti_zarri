@@ -23,13 +23,13 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
             lastModifiedAtUtc = DateTime.Now;
         } 
         
-        public void turnOn()
+        public override void turnOn()
         {
             is_on=true;
             lastModifiedAtUtc = DateTime.Now;
         }
 
-        public void turnOff()
+        public override void turnOff()
         {
             is_off=true;
             lastModifiedAtUtc = DateTime.Now;
