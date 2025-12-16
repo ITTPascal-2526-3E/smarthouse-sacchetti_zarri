@@ -29,7 +29,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
 
             // Act
             led.turnOn();
-
+         
             // Assert
             Assert.True(led.is_on);
             Assert.Equal(100, led.brightness_Perc);
