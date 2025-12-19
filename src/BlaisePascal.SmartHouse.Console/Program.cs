@@ -39,7 +39,7 @@ public class Program{
 
         LampsRow lampsRow = new LampsRow();
         lampsRow.addLamp(23.4,"ciao",100.0);
-        lampsRow.swithcRowOn();
+        lampsRow.turnOn();
         Console.WriteLine("LampsRow first lamp is on: " + lampsRow.lamps[0].is_on);
 
         Shutters shutters = new Shutters();

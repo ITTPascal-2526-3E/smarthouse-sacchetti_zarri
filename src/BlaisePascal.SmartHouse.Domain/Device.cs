@@ -7,21 +7,13 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain
 {
-    public abstract class Device
+    public abstract class Device: IDevice
     {
         public Guid deviceId { get; protected set; } = Guid.NewGuid();
         public DateTime cratedTime { get; protected set; } = DateTime.UtcNow;
         public DateTime lastModifiedAtUtc { get; protected set; }
 
-        public virtual void turnOn()
-        {
-            lastModifiedAtUtc = DateTime.Now;
-        }
-
-        public virtual void turnOff()
-        {
-            lastModifiedAtUtc = DateTime.Now;
-        }
-
+        public virtual void turnOn() { }
+        public virtual void turnOff() { }
     }
 }

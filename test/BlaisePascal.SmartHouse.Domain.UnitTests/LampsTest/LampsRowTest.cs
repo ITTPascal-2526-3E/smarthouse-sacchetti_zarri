@@ -31,7 +31,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
             row.addLamp(10, "Philips", 800);
             row.addLamp(12, "Xiaomi", 700);
 
-            row.swithcRowOn();
+            row.turnOn();
 
             Assert.All(row.lamps, lamp => Assert.True(lamp.is_on));
             Assert.All(row.lamps, lamp => Assert.Equal(100, lamp.brightness_Perc));
@@ -45,8 +45,8 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
             row.addLamp(10, "Philips", 800);
             row.addLamp(12, "Xiaomi", 700);
 
-            row.swithcRowOn();
-            row.swithcRowOff();
+            row.turnOn();
+            row.turnOff();
 
             Assert.All(row.lamps, lamp => Assert.False(lamp.is_on));
             Assert.All(row.lamps, lamp => Assert.Equal(0, lamp.brightness_Perc));
@@ -57,7 +57,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
         {
             LampsRow row = new LampsRow();
 
-            row.swithcRowOn();
+            row.turnOn();
 
             Assert.Empty(row.lamps);
 
@@ -69,7 +69,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
         {
             LampsRow row = new LampsRow();
 
-            row.swithcRowOff();
+            row.turnOff();
 
             Assert.Empty(row.lamps);
         }

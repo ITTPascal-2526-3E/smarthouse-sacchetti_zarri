@@ -30,7 +30,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
             matrixLed.GenerateMatrix(2, 2, led);
 
             // Act
-            matrixLed.SwitchOnAll();
+            matrixLed.turnOn();
 
             // Assert
             foreach (var cell in matrixLed.matrix)
@@ -47,10 +47,10 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
             Led led = new Led(5, "Test", 200);
             matrixLed.GenerateMatrix(2, 2, led);
 
-            matrixLed.SwitchOnAll();
+            matrixLed.turnOn();
 
             // Act
-            matrixLed.SwitchOffAll();
+            matrixLed.turnOff();
 
             // Assert
             foreach (var cell in matrixLed.matrix)
@@ -84,7 +84,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
             MatrixLed matrixLed = new MatrixLed();
             Led led = new Led(5, "Test", 200);
             matrixLed.GenerateMatrix(3, 3, led);
-            matrixLed.SwitchOffAll();
+            matrixLed.turnOff();
             // Act
             matrixLed.PatternCheckerBoard();
 

@@ -39,14 +39,14 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
             is_on = false;
         }
 
-        public virtual void turnOn()
+        public override void turnOn()
         {
             brightness_Perc = 100;
             is_on = true;
             lastModifiedAtUtc = DateTime.Now;
         }
 
-        public virtual void turnOff()
+        public override void turnOff()
         {
             brightness_Perc = 0;
             is_on = false;

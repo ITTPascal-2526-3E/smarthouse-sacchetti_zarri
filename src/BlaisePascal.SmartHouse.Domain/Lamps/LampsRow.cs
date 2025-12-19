@@ -14,7 +14,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
             lamps.Add(new Lamp(power3,brand3,max_brightness3));
         }
 
-        public void swithcRowOn()
+        public override void turnOn()
         {
             foreach(var lamp in lamps)
             {
@@ -23,7 +23,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
             lastModifiedAtUtc = DateTime.Now;
         }
 
-        public void swithcRowOff()
+        public override void turnOff()
         {
             
             foreach (var lamp in lamps)

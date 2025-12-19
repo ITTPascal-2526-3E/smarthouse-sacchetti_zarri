@@ -23,8 +23,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
             }
             lastModifiedAtUtc = DateTime.Now;
         }
-
-        public void SwitchOnAll()
+        public override void turnOn()
         {
             for(int i = 0;i < matrix.GetLength(0); i++)
             {
@@ -36,7 +35,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
             lastModifiedAtUtc = DateTime.Now;
         }
 
-        public void SwitchOffAll()
+        public override void turnOff()
         {
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
