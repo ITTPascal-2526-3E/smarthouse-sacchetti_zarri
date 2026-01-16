@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Lamps
 {
-    public class MatrixLed : Device
+    sealed class MatrixLed : Device
     {
         public Led[,] matrix;
 

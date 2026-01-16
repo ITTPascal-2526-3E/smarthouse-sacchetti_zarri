@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Shutters
 {
-    public class Shutters
+    sealed class Shutters
     {
         public bool is_open { get; set; } 
         public bool is_closed { get; set; }

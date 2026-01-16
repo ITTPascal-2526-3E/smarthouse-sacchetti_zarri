@@ -1,7 +1,7 @@
 ﻿using OpenCvSharp;
 using System;
 
-public class Webcam
+sealed class Webcam
 {
     private VideoCapture _capture;
     private Window _window;
