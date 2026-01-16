@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenCvSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
     {
         public double current_temperature { get; private set; }
         public double target_temperature { get; protected set; }
+        protected bool is_on = false;
         public AirConditioner air_conditioner { get; protected set; } = new AirConditioner(20.0, 3);
         public Radiator[] radiators { get; protected set; } = new Radiator[5];
         
@@ -17,9 +19,21 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
             current_temperature = Current_temperature;
         }
 
+
+        public override void turnOn()
+        {
+            is_on = true;
+            lastModifiedAtUtc = DateTime.Now;
+        }
+        public override void turnOff()
+        {
+            is_on = false;
+            lastModifiedAtUtc = DateTime.Now;
+        }
+
         public void SwitchTargetTemperature(double Target_temperature)
         { 
-            if (Target_temperature < current_temperature)
+            if (Target_temperature < current_temperature && is_on==true)
             {
                 air_conditioner.switchTemperature(Target_temperature);
                 air_conditioner.turnOn();

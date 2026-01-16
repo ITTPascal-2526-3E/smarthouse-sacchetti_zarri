@@ -12,6 +12,21 @@ namespace BlaisePascal.SmartHouse.Domain
         public bool smoke { get; set; }
         AlarmSound alarm2 = new AlarmSound();
 
+
+
+        public override void turnOn()
+        {
+            smoke = false;
+            smoke_detectet = false;
+            lastModifiedAtUtc = DateTime.Now;
+        }   
+        public override void turnOff()
+        {
+            smoke = false;
+            smoke_detectet = false;
+            lastModifiedAtUtc = DateTime.Now;
+        }
+
         public void smokeDetector()
         {
             if (smoke == true)

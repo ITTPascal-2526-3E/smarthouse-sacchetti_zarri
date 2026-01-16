@@ -38,8 +38,9 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.ClimateTest
         public void SwitchIntensity_ShouldChangeAirIntensity()
         {
             // Arrange
-            var airConditioner = new AirConditioner(18.0, 3);
+            var airConditioner = new AirConditioner(2, 3);
             // Act
+            airConditioner.turnOn();
             airConditioner.switchIntensity(5);
             // Assert
             Assert.Equal(5, airConditioner.air_intensity);

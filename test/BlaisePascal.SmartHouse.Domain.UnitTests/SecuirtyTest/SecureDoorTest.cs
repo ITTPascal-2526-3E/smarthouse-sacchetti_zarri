@@ -26,10 +26,10 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.SecurityTest
         {
             // Arrange
             var door = new SecureDoor(InitialPassword, InitialEmail);
-            door.unlockDoor(InitialPassword);
+            door.UnlockDoor(InitialPassword);
 
             // Act
-            door.lockDoor();
+            door.LockDoor();
 
             // Assert
             Assert.True(door.is_locked);
@@ -42,7 +42,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.SecurityTest
             var door = new SecureDoor(InitialPassword, InitialEmail);
 
             // Act
-            door.unlockDoor(InitialPassword);
+            door.UnlockDoor(InitialPassword);
 
             // Assert
             Assert.False(door.is_locked);
@@ -55,7 +55,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.SecurityTest
             var door = new SecureDoor(InitialPassword, InitialEmail);
 
             // Act
-            door.unlockDoor("WrongPassword");
+            door.UnlockDoor("WrongPassword");
 
             // Assert
             Assert.True(door.is_locked);

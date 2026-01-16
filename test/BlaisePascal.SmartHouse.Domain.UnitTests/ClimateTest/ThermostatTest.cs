@@ -20,7 +20,8 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.ClimateTest
 		public void SwitchTargetTemperature_SmallerTemperature_ShouldTurnOnAirConditioner()
 		{
 			Thermostat thermostat = new Thermostat(10.0);
-			thermostat.SwitchTargetTemperature(5.0);
+			thermostat.turnOn();
+            thermostat.SwitchTargetTemperature(5.0);
 			Assert.Equal(5.0, thermostat.current_temperature);
 		}
 		

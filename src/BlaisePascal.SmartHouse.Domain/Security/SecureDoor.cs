@@ -24,10 +24,10 @@ namespace BlaisePascal.SmartHouse.Domain.Security
         {
             is_locked = true;
         }
-        
+
         public void UnlockDoor(string Password)
         {
-            if(Password == password)
+            if (Password == password)
                 is_locked = false;
         }
 
