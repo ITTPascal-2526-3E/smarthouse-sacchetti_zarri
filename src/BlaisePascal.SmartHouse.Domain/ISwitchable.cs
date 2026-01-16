@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain
 {
-    public interface IDevice
+    public interface ISwitchable
     {
-        public void turnOn();
-        public void turnOff();       
+        public abstract void turnOn();
+        public abstract void turnOff();       
     }
 }

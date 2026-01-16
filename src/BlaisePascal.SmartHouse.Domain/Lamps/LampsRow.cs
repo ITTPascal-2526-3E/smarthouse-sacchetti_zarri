@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Lamps
 {
-    sealed class LampsRow : Device
+    public class LampsRow : Device
     {
         public List<Lamp> lamps = new List<Lamp>();
         public void addLamp(double power3,string brand3,double max_brightness3)
