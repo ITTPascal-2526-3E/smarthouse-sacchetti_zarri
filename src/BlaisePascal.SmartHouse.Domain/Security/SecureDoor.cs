@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Security
 {
-    public class SecureDoor
+    public class SecureDoor : ILockable
     {
         public bool is_locked { get; private set; } 
         public string mail { get; private set; }
@@ -20,12 +20,12 @@ namespace BlaisePascal.SmartHouse.Domain.Security
             mail = email;
             is_locked = true;
         }
-        public void lockDoor()
+        public void LockDoor()
         {
             is_locked = true;
         }
         
-        public void unlockDoor(string Password)
+        public void UnlockDoor(string Password)
         {
             if(Password == password)
                 is_locked = false;

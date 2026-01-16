@@ -1,11 +1,8 @@
 UML: 
-freccia LampsRow e Lamp
+perfetto
 
 DOCUMENTAZIONE:
-non esiste
+esiste, aura documentazione
 
 SOFTWARE:
-- creare folders in domain tests come domain
-- protected set nelle classi padri, private set nelle classi concrete
-- completare i test con tutte le classi del domain
-- cercare di evitare i magic Numbers e utilizzare private const
+aura software
