@@ -8,7 +8,7 @@ namespace BlaisePascal.SmartHouse.Domain
 {
     public interface ILockable
     {
-        public void LockDoor();
-        public void UnlockDoor();
+        public  void LockDoor();
+        public  void UnlockDoor(string key);
     }
 }

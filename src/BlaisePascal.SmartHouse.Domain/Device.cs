@@ -13,7 +13,7 @@ namespace BlaisePascal.SmartHouse.Domain
         public DateTime cratedTime { get; protected set; } = DateTime.UtcNow;
         public DateTime lastModifiedAtUtc { get; protected set; }
 
-        public virtual void turnOn() { }
-        public virtual void turnOff() { }
+        public void turnOn() { }
+        public void turnOff() { }
     }
 }

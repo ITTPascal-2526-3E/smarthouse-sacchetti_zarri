@@ -8,7 +8,7 @@ namespace BlaisePascal.SmartHouse.Domain
 {
     public interface ISwitchable
     {
-        public abstract void turnOn();
-        public abstract void turnOff();       
+        public void turnOn();
+        public void turnOff();       
     }
 }
