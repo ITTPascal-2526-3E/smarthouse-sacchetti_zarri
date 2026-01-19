@@ -53,7 +53,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
             lastModifiedAtUtc = DateTime.Now;
         }
 
-        public void adjustBrightness(int new_bright_perc)
+        public override void adjustBrightness(int new_bright_perc)
         {
             if (int.IsPositive(new_bright_perc) && new_bright_perc <= 100)
             {

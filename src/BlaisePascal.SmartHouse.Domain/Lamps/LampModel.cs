@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Lamps
 {
-    public abstract class LampModel : Device, ILamp
+    public abstract class LampModel : Device, ILuminouse
     {
         public double max_brightness { get; protected set; } //brightness is in Lumen
         public int brightness_Perc { get; protected set; } //bright perc
@@ -14,7 +14,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
         public bool is_on { get; protected set; }
         public string brand { get; protected set; }
         public LampColor Color { get; protected set; }
-        public void adjustBrightness(int new_bright_perc){}
+        public abstract void adjustBrightness(int new_bright_perc);
 
     }
 }
