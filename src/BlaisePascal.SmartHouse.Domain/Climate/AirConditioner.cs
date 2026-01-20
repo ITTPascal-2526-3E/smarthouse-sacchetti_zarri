@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlaisePascal.SmartHouse.Domain.AbstractInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Climate
 {
-    public class AirConditioner : Device
+    public sealed class AirConditioner : Device
     {
         public double lowest_temperature { get; protected set; } // temperature is in degrees celsius
         public int air_intensity { get; protected set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Lamps
 {
-    public class EcoLamp : Lamp
+    public sealed class EcoLamp : Lamp
     {
         public DateTime? startTime;
         const int brightnessWhenEcoOn = 75;

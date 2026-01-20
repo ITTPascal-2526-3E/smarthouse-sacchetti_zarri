@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlaisePascal.SmartHouse.Domain.AbstractInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Climate
 {
-    public class Radiator : Device 
+    public sealed class Radiator : Device 
     {
         public double temperature { get; protected set; } // temperature is in degrees celsius
         public bool is_on { get; protected set; }
