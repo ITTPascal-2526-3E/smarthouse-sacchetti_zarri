@@ -76,15 +76,14 @@ public class Program{
 
         SecureDoor door = new SecureDoor("mypassword", "zarrimako@gmail.com");
         SendBackupCode sender = new SendBackupCode(door);
-        door.LockDoor();
+        door.Lock();
 
-        door.UnlockDoor(Console.ReadLine());
+        door.Unlock(Console.ReadLine());
         Console.WriteLine("Door is locked: " + door.is_locked);
         //door.resetPassword();
 
-        door.UnlockDoor(Console.ReadLine());
+        door.Unlock(Console.ReadLine());
         Console.WriteLine("Door is locked: " + door.is_locked);
 
     }
 }
-

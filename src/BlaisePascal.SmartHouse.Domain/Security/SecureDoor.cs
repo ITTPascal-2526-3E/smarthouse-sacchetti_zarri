@@ -26,12 +26,12 @@ namespace BlaisePascal.SmartHouse.Domain.Security
             mail = email;
             is_locked = true;
         }
-        public void LockDoor()
+        public void Lock()
         {
             is_locked = true;
         }
 
-        public void UnlockDoor(string Password)
+        public void Unlock(string Password)
         {
             if (Password == password)
                 is_locked = false;
