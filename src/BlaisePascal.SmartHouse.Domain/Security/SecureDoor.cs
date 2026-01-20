@@ -1,4 +1,5 @@
 ﻿using BlaisePascal.SmartHouse.Domain.AbstractInterfaces;
+using BlaisePascal.SmartHouse.Domain.Security.SecurityAbstraction;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,11 +10,15 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Security
 {
-    public sealed class SecureDoor : ILockable
+    public sealed class SecureDoor : ILockable,  IPassword
     {
+
+        Authentication Authentication = new Authentication();
         public bool is_locked { get; private set; } 
         public string mail { get; private set; }
         public string password { get; protected set; }
+
+
 
         public SecureDoor(string password1, string email)
         {
@@ -32,9 +37,10 @@ namespace BlaisePascal.SmartHouse.Domain.Security
                 is_locked = false;
         }
 
-        internal void SetPassword(string newPass)
+        public void SetPassword(string newPass)
         {
-            password = newPass;
+            if(Authentication.isAuthorized==true)
+                password = newPass;
         }
 
         public void resetPassword()
