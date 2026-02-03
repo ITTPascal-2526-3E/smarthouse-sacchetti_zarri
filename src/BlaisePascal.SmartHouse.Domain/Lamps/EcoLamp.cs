@@ -12,7 +12,6 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
         const int brightnessWhenEcoOn = 75;
         const int brightnessWhenNight = 30;
 
-
         public EcoLamp(double Power, string Brand, double Max_brightness): base(Power, Brand, Max_brightness)
         {
            
