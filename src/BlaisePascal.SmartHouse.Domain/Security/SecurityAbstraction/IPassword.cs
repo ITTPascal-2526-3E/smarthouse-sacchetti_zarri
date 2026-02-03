@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace BlaisePascal.SmartHouse.Domain.Security.SecurityAbstraction
 {
     public interface IPassword
     {
-        void SetPassword(string newPass);
+        void SetPassword(Password newPass);
         void resetPassword();
 
     }

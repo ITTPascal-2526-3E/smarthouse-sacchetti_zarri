@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,6 @@ namespace BlaisePascal.SmartHouse.Domain.AbstractInterfaces
     public interface ILockable
     {
         public  void Lock();
-        public  void Unlock(string key);
+        public  void Unlock(Password key);
     }
 }

@@ -5,63 +5,36 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
 
 namespace BlaisePascal.SmartHouse.Domain.Lamps
 {
     public sealed class Led : LampModel
     {
-        public double max_brightness { get; protected set; } //brightness is in Lumen
-        public int brightness_Perc { get; protected set; } //bright perc
-        public double power { get; private set; }//power is in Watt
-        public bool is_on { get; protected set; }
-        public string brand { get; protected set; }
-        public LampColor Color { get; protected set; }
-
-
-        public Led(double Power, string Brand, double Max_brightness)
+        public Led(Power Power, Name Brand, Brightness Max_brightness)
         {
-            if (double.IsPositive(Power))
-            {
-                power = Power;
-            }
-
-            if (!string.IsNullOrEmpty(Brand))
-            {
-                brand = Brand;
-            }
-
-            if (double.IsPositive(Max_brightness))
-            {
-                max_brightness = Max_brightness;
-            }
-
-            brightness_Perc = 0;
+            brightness_Perc = new Brightness(0);
             is_on = false;
         }
 
         public override void turnOn()
         {
-            brightness_Perc = 100;
+            brightness_Perc = new Brightness(100);
             is_on = true;
             lastModifiedAtUtc = DateTime.Now;
         }
 
         public override void turnOff()
         {
-            brightness_Perc = 0;
+            brightness_Perc = new Brightness(0);
             is_on = false;
             lastModifiedAtUtc = DateTime.Now;
         }
 
-        public override void adjustBrightness(int new_bright_perc)
+        public override void adjustBrightness(Brightness new_bright_perc)
         {
-            if (int.IsPositive(new_bright_perc) && new_bright_perc <= 100)
-            {
-                brightness_Perc = new_bright_perc;
-                lastModifiedAtUtc = DateTime.Now;
-            }
-            else
-                throw new ArgumentException("Brightness percentage must be between 0 and 100.");
+            brightness_Perc = new_bright_perc;
+            lastModifiedAtUtc = DateTime.Now;
         }
 
     }

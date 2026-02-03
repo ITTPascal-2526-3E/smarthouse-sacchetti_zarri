@@ -1,4 +1,5 @@
 ﻿using BlaisePascal.SmartHouse.Domain.AbstractInterfaces;
+using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
             lastModifiedAtUtc = DateTime.Now;
         }
 
-        public void SetIntensityAll(int intensity)
+        public void SetIntensityAll(Brightness intensity)
         {
             for (int i = 0; i < matrix.GetLength(0); i++)
             {

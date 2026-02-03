@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
 
 namespace BlaisePascal.SmartHouse.Domain.Lamps
 {
     public sealed class LampsRow : Device
     {
         public List<Lamp> lamps = new List<Lamp>();
-        public void addLamp(double power3,string brand3,double max_brightness3)
+        public void addLamp( Power power3,Name brand3,Brightness max_brightness3)
         {
             lamps.Add(new Lamp(power3,brand3,max_brightness3));
         }

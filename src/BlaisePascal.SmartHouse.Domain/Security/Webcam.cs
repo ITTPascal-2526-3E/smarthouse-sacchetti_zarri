@@ -30,12 +30,10 @@ public sealed class Webcam
 
             _window.ShowImage(_frame);
 
-            // ESC = 27
             if (Cv2.WaitKey(1) == 27)
                 Stop();
         }
 
-        // Rilascia le risorse manualmente
         Close();
     }
 
