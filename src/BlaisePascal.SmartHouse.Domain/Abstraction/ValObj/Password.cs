@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Abstraction.ValObj
 {
-    internal class Password
+    public class Password
     {
+        public string Value { get; private set; }
+        public Password(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException("Password must be at least 6 characters long.", nameof(value));
+            Value = value;
+        }
     }
 }

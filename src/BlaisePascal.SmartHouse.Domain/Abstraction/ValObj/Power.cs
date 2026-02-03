@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Abstraction.ValObj
 {
-    internal class Power
+    public class Power
     {
+        public double Value { get; private set; }
+        public Power(double value)
+        {
+            if (value <= 0)
+                throw new ArgumentOutOfRangeException(nameof(value), "Power must be a positive number.");
+            Value = value;
+        }
     }
 }

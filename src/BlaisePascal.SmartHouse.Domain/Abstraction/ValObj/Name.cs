@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Abstraction.ValObj
 {
-    internal class Name
+    public class Name
     {
+        public string Value { get; private set; }
+        public Name(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException("Name cannot be empty.", nameof(value));
+            Value = value;
+        }
     }
 }

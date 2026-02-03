@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Domain.Abstraction.ValObj
 {
-    internal class Email
+    public class Email
     {
+        public string Value { get; private set; }
+        public Email(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value) || !value.Contains("@"))
+                throw new ArgumentException("Invalid email address.", nameof(value));
+            Value = value;
+        }
     }
 }
