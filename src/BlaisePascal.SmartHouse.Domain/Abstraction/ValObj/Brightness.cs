@@ -11,9 +11,7 @@ namespace BlaisePascal.SmartHouse.Domain.Abstraction.ValObj
         public int Value { get; private set; }
         public Brightness(int value)
         {
-            if (value < 0 || value > 100)
-                throw new ArgumentOutOfRangeException(nameof(value), "Brightness must be between 0 and 100.");
-            Value = value;
+            Value= Math.Clamp(value, 0, 100);
         }
     }
 }
