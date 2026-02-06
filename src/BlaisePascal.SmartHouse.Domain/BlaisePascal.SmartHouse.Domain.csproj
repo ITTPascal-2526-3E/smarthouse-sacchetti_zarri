@@ -11,4 +11,8 @@
     <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.11.0.20250507" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Climate\ClimateAbstraction\" />
+  </ItemGroup>
+
 </Project>
