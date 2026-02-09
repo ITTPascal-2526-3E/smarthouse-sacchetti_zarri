@@ -14,13 +14,13 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
         public void AddLamp_ShouldIncreaseLampCount()
         {
             LampsRow row = new LampsRow();
-            
-            row.addLamp(10, "Philips", 800);
-            row.addLamp(12, "Xiaomi", 700);
+
+            row.addLamp(new Abstraction.ValObj.Power(10), new Abstraction.ValObj.Name("Philips"), new Abstraction.ValObj.Brightness(800));
+            row.addLamp(new Abstraction.ValObj.Power(12), new Abstraction.ValObj.Name("Xiaomi"), new Abstraction.ValObj.Brightness(700));
 
             Assert.Equal(2, row.lamps.Count);
-            Assert.Equal("Philips", row.lamps[0].brand);
-            Assert.Equal("Xiaomi", row.lamps[1].brand);
+            Assert.Equal(new Abstraction.ValObj.Name("Philips"), row.lamps[0].brand);
+            Assert.Equal(new Abstraction.ValObj.Name("Xiaomi"), row.lamps[1].brand);
         }
 
         [Fact]
@@ -28,13 +28,13 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
         {
             LampsRow row = new LampsRow();
 
-            row.addLamp(10, "Philips", 800);
-            row.addLamp(12, "Xiaomi", 700);
+            row.addLamp(new Abstraction.ValObj.Power(10), new Abstraction.ValObj.Name("Philips"), new Abstraction.ValObj.Brightness(800));
+            row.addLamp(new Abstraction.ValObj.Power(12), new Abstraction.ValObj.Name("Xiaomi"), new Abstraction.ValObj.Brightness(700));
 
             row.turnOn();
 
             Assert.All(row.lamps, lamp => Assert.True(lamp.is_on));
-            Assert.All(row.lamps, lamp => Assert.Equal(100, lamp.brightness_Perc));
+            Assert.All(row.lamps, lamp => Assert.Equal(new Abstraction.ValObj.Brightness(100), lamp.brightness_Perc));
         }
 
         [Fact]
@@ -42,14 +42,14 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
         {
             LampsRow row = new LampsRow();
 
-            row.addLamp(10, "Philips", 800);
-            row.addLamp(12, "Xiaomi", 700);
+            row.addLamp(new Abstraction.ValObj.Power(10), new Abstraction.ValObj.Name("Philips"), new Abstraction.ValObj.Brightness(800));
+            row.addLamp(new Abstraction.ValObj.Power(12), new Abstraction.ValObj.Name("Xiaomi"), new Abstraction.ValObj.Brightness(700));
 
             row.turnOn();
             row.turnOff();
 
             Assert.All(row.lamps, lamp => Assert.False(lamp.is_on));
-            Assert.All(row.lamps, lamp => Assert.Equal(0, lamp.brightness_Perc));
+            Assert.All(row.lamps, lamp => Assert.Equal(new Abstraction.ValObj.Brightness(0), lamp.brightness_Perc));
         }
 
         [Fact]
@@ -60,8 +60,6 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
             row.turnOn();
 
             Assert.Empty(row.lamps);
-
-
         }
 
         [Fact]
@@ -75,4 +73,3 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
         }
     }
 }
-

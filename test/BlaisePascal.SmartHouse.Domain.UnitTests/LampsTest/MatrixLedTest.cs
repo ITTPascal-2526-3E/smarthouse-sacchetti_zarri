@@ -10,9 +10,11 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
         {
             // Arrange
             MatrixLed matrixLed = new MatrixLed();
-            Led led = new Led(5, "Test", 200);
+            // Inietto Value Objects nel costruttore del LED
+            Led led = new Led(new Abstraction.ValObj.Power(5), new Abstraction.ValObj.Name("Test"), new Abstraction.ValObj.Brightness(200));
 
             // Act
+            // Nota: righe e colonne (3, 4) rimangono int in quanto dimensioni della matrice, non VO di dominio lampada
             matrixLed.GenerateMatrix(3, 4, led);
 
             // Assert
@@ -26,7 +28,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
         {
             // Arrange
             MatrixLed matrixLed = new MatrixLed();
-            Led led = new Led(5, "Test", 200);
+            Led led = new Led(new Abstraction.ValObj.Power(5), new Abstraction.ValObj.Name("Test"), new Abstraction.ValObj.Brightness(200));
             matrixLed.GenerateMatrix(2, 2, led);
 
             // Act
@@ -44,7 +46,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
         {
             // Arrange
             MatrixLed matrixLed = new MatrixLed();
-            Led led = new Led(5, "Test", 200);
+            Led led = new Led(new Abstraction.ValObj.Power(5), new Abstraction.ValObj.Name("Test"), new Abstraction.ValObj.Brightness(200));
             matrixLed.GenerateMatrix(2, 2, led);
 
             matrixLed.turnOn();
@@ -64,16 +66,16 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
         {
             // Arrange
             MatrixLed matrixLed = new MatrixLed();
-            Led led = new Led(5, "Test", 200);
+            Led led = new Led(new Abstraction.ValObj.Power(5), new Abstraction.ValObj.Name("Test"), new Abstraction.ValObj.Brightness(200));
             matrixLed.GenerateMatrix(2, 3, led);
 
             // Act
-            matrixLed.SetIntensityAll(70);
+            matrixLed.SetIntensityAll(new Abstraction.ValObj.Brightness(70));
 
             // Assert
             foreach (var cell in matrixLed.matrix)
             {
-                Assert.Equal(70, cell.brightness_Perc);
+                Assert.Equal(new Abstraction.ValObj.Brightness(70), cell.brightness_Perc);
             }
         }
 
@@ -82,9 +84,10 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
         {
             // Arrange
             MatrixLed matrixLed = new MatrixLed();
-            Led led = new Led(5, "Test", 200);
+            Led led = new Led(new Abstraction.ValObj.Power(5), new Abstraction.ValObj.Name("Test"), new Abstraction.ValObj.Brightness(200));
             matrixLed.GenerateMatrix(3, 3, led);
             matrixLed.turnOff();
+
             // Act
             matrixLed.PatternCheckerBoard();
 
@@ -94,7 +97,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
                 for (int j = 0; j < 3; j++)
                 {
                     bool shouldOn;
-                    if ((i+j )%2 == 1)
+                    if ((i + j) % 2 == 1)
                     {
                         shouldOn = true;
                     }
@@ -103,7 +106,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
                         shouldOn = false;
                     }
 
-                    Assert.Equal(shouldOn, matrixLed.matrix[i, j].is_on);                  
+                    Assert.Equal(shouldOn, matrixLed.matrix[i, j].is_on);
                 }
             }
         }

@@ -13,7 +13,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.ClimateTest
         public void TurnOn_ShouldEnableAirConditioner()
         {
             // Arrange
-            var airConditioner = new AirConditioner(18.0, 3);
+            var airConditioner = new AirConditioner(18.0, new Abstraction.ValObj.Air(3));
             // Act
             airConditioner.turnOn();
             // Assert
@@ -25,7 +25,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.ClimateTest
         public void TurnOff_ShouldDisableAirConditioner()
         {
             // Arrange
-            var airConditioner = new AirConditioner(18.0, 3);
+            var airConditioner = new AirConditioner(18.0, new Abstraction.ValObj.Air(3));
             airConditioner.turnOn();
             // Act
             airConditioner.turnOff();
@@ -38,7 +38,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.ClimateTest
         public void SwitchIntensity_ShouldChangeAirIntensity()
         {
             // Arrange
-            var airConditioner = new AirConditioner(2, 3);
+            var airConditioner = new AirConditioner(2, new Abstraction.ValObj.Air(3));
             // Act
             airConditioner.turnOn();
             airConditioner.switchIntensity(5);
@@ -50,7 +50,7 @@ namespace BlaisePascal.SmartHouse.Domain.UnitTests.ClimateTest
         public void SwitchTemperature_ShouldChangeTargetTemperature()
         {
             // Arrange
-            var airConditioner = new AirConditioner(18.0, 3);
+            var airConditioner = new AirConditioner(18.0, new Abstraction.ValObj.Air(3));
             // Act
             airConditioner.switchTemperature(22.0);
             // Assert

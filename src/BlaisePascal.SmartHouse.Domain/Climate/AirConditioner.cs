@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
 
 namespace BlaisePascal.SmartHouse.Domain.Climate
 {
@@ -17,13 +18,8 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
         public int last_air_intensity { get; private set; }
         public double target_temperature { get; private set;  }
 
-        public AirConditioner(double Lowest_temperature, int Air_intensity)
+        public AirConditioner(double Lowest_temperature, Air Air_intensity)
         {
-            if (Air_intensity > 0 && Air_intensity <= 5)
-            {
-                air_intensity = Air_intensity;
-            }
-
             lowest_temperature = Lowest_temperature;
             last_air_intensity = air_intensity;
         }
