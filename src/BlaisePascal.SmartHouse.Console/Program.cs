@@ -1,11 +1,120 @@
 ﻿using BlaisePascal.SmartHouse.Domain.Climate;
 using BlaisePascal.SmartHouse.Domain.Lamps;
+using BlaisePascal.SmartHouse.Domain.Program;
 using BlaisePascal.SmartHouse.Domain.Security;
 using BlaisePascal.SmartHouse.Domain.Shutters;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 
 public class Program{
     static void Main(string[] args)
     {
+        Console.WriteLine("--MENU SMARTHOUSE--");
+        Console.WriteLine("Benvenuto, cosa desideri fare?");
+        Console.WriteLine("A - menù illuminazione");
+        Console.WriteLine("B - menù climatizzazione");
+        Console.WriteLine("C - menù scuroni");
+        Console.WriteLine("D - menù sicurezza intrusi");
+        Console.WriteLine("E - menù sicurezza antincendio");
+        Console.WriteLine();
+        Console.WriteLine();
+        var menuOpzioni = new Dictionary<ConsoleKey, string>
+        {
+            { ConsoleKey.A, "illuminazione" },
+            { ConsoleKey.B, "climatizzazione" },
+            { ConsoleKey.C, "scuroni" },
+            { ConsoleKey.D, "sicurezza intrusi" },
+            { ConsoleKey.E, "sicurezza antincendio" }
+        };
+        ConsoleKey input = Console.ReadKey(true).Key;
+
+        if (menuOpzioni.TryGetValue(input, out string scelta))
+        {
+            Console.WriteLine($"Hai scelto il menù {scelta}");
+            if(scelta == "illuminazione")
+            {
+                var menuOpzioni2 = new Dictionary<ConsoleKey, string>
+                     {
+                        { ConsoleKey.A, "Lampada"},
+                        { ConsoleKey.B, "Ecolampada"},
+                        { ConsoleKey.C, "Gruppo di lampade"},
+                        { ConsoleKey.D, "Matrice di LEDs"}
+                     };
+                Console.WriteLine("--MENU ILLUMINAZIONE--");
+                Console.WriteLine("Cosa desideri fare?");
+                Console.WriteLine("A - menù Lampada");
+                Console.WriteLine("B - menù Ecolampada");
+                Console.WriteLine("C - menù Gruppo di lampade");
+                Console.WriteLine("D - menù Matrice di LEDs");
+                Console.WriteLine();
+                Console.WriteLine();
+                ConsoleKey input2 = Console.ReadKey(true).Key;
+
+                if (menuOpzioni2.TryGetValue(input, out string scelta2))
+                {
+                    Console.WriteLine($"Hai scelto il menù {scelta}");
+                    if(scelta2 == "Lampada") {
+                    
+                    }
+                    else if (scelta2 == "Ecolampada") {
+                    
+                    }
+                    else if (scelta2 == "Gruppo di lampade") {
+                    
+                    }
+                    else if (scelta2 == "Matrice di LEDs") { 
+                    
+                    }
+                }
+            else if (scelta == "climatizzazione")
+            {
+                Console.WriteLine("--MENU CLIMATIZZAZIONE--");
+                Console.WriteLine("Cosa desideri fare?");
+                Console.WriteLine("A - menù Termoregolatore");
+                Console.WriteLine();
+                Console.WriteLine();
+
+            }
+            else if (scelta == "scuroni")
+            {
+                Console.WriteLine("--MENU SCURONI--");
+                Console.WriteLine("cosa desideri fare?");
+                Console.WriteLine("A - menù Scuroni automatici");
+                Console.WriteLine();
+                Console.WriteLine();
+
+
+            }
+            else if (scelta == "sicurezza intrusi")
+            {
+                Console.WriteLine("--MENU SICUREZZA INTRUSI--");
+                Console.WriteLine("Cosa desideri fare?");
+                Console.WriteLine("A - menù Porta blindata");
+                Console.WriteLine();
+                Console.WriteLine();
+
+
+            }
+            else if (scelta == "sicurezza antincendio")
+            { 
+                Console.WriteLine("--MENU SICUREZZA ANTINCENDIO--");
+                Console.WriteLine("Cosa desideri fare?");
+                Console.WriteLine("A - menù Rilevatore di fumo");
+                Console.WriteLine();
+                Console.WriteLine();
+
+
+            }
+
+        }
+        else
+        {
+            Console.WriteLine("Tasto non valido");
+        }
+
+
+
+        /*
         Lamp lamp = new Lamp(60.0, "Philips", 800.0);
         Lamp lamp2 = new Lamp(60.0, "Philips", 800.0);
         lamp.turnOn();
@@ -84,6 +193,6 @@ public class Program{
 
         door.Unlock(Console.ReadLine());
         Console.WriteLine("Door is locked: " + door.is_locked);
-
+        */
     }
 }
