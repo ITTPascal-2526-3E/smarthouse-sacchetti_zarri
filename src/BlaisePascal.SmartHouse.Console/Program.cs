@@ -4,251 +4,262 @@ using BlaisePascal.SmartHouse.Domain.Lamps;
 using BlaisePascal.SmartHouse.Domain.Program;
 using BlaisePascal.SmartHouse.Domain.Security;
 using BlaisePascal.SmartHouse.Domain.Shutters;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
+using System;
+using System.Collections.Generic;
 
-public class Program{
+public class Program
+{
     static void Main(string[] args)
     {
-        Lamp lamp = new Lamp();
-        EcoLamp ecoLamp = new EcoLamp();
-        LampsRow lampsRow = new LampsRow();
-        MatrixLed matrixLed = new MatrixLed();
+        // --- 1. ISTANZIAMENTO OGGETTI ---
+        // Uso i namespace completi come nel tuo screenshot per sicurezza
+        Lamp lamp = new Lamp(new Power(10), new Name("Philips"), new Brightness(800));
+        EcoLamp ecoLamp = new EcoLamp(new Power(5), new Name("Beghelli"), new Brightness(600));
 
-
-
-
-        Console.WriteLine("--MENU SMARTHOUSE--");
-        Console.WriteLine("Benvenuto, cosa desideri fare?");
-        Console.WriteLine("A - menù illuminazione");
-        Console.WriteLine("B - menù climatizzazione");
-        Console.WriteLine("C - menù scuroni");
-        Console.WriteLine("D - menù sicurezza intrusi");
-        Console.WriteLine("E - menù sicurezza antincendio");
-        Console.WriteLine();
-        Console.WriteLine();
-        var menuOpzioni = new Dictionary<ConsoleKey, string>
+        // --- 2. DIZIONARI MENU (CORRETTO SENZA DUPLICATI) ---
+        var menuColori = new Dictionary<ConsoleKey, LampColor>
         {
-            { ConsoleKey.A, "illuminazione" },
-            { ConsoleKey.B, "climatizzazione" },
-            { ConsoleKey.C, "scuroni" },
-            { ConsoleKey.D, "sicurezza intrusi" },
-            { ConsoleKey.E, "sicurezza antincendio" }
+            { ConsoleKey.A, LampColor.White},
+            { ConsoleKey.B, LampColor.WarmWhite},
+            { ConsoleKey.C, LampColor.CoolWhite},
+            { ConsoleKey.D, LampColor.Red},
+            { ConsoleKey.E, LampColor.Green},
+            { ConsoleKey.F, LampColor.Blue},
+            { ConsoleKey.G, LampColor.Yellow},
+            { ConsoleKey.H, LampColor.Purple}
         };
-        ConsoleKey input = Console.ReadKey(true).Key;
 
-        if (menuOpzioni.TryGetValue(input, out string scelta))
+        bool eseguiProgramma = true;
+
+        // --- CICLO PRINCIPALE (HOME) ---
+        while (eseguiProgramma)
         {
-            Console.WriteLine($"Hai scelto il menù {scelta}");
-            if(scelta == "illuminazione")
-            {
-                var menuOpzioni2 = new Dictionary<ConsoleKey, string>
-                     {
-                        { ConsoleKey.A, "Lampada"},
-                        { ConsoleKey.B, "Ecolampada"},
-                        { ConsoleKey.C, "Gruppo di lampade"},
-                        { ConsoleKey.D, "Matrice di LEDs"}
-                     };
-                Console.WriteLine("--MENU ILLUMINAZIONE--");
-                Console.WriteLine("Cosa desideri fare?");
-                Console.WriteLine("A - menù Lampada");
-                Console.WriteLine("B - menù Ecolampada");
-                Console.WriteLine("C - menù Gruppo di lampade");
-                Console.WriteLine("D - menù Matrice di LEDs");
-                Console.WriteLine();
-                Console.WriteLine();
-                ConsoleKey input2 = Console.ReadKey(true).Key;
+            Console.Clear(); // Pulisce sempre all'inizio del ciclo
+            Console.WriteLine("=====================================");
+            Console.WriteLine("        SMARTHOUSE - HOME            ");
+            Console.WriteLine("=====================================");
+            Console.WriteLine("A - Illuminazione");
+            Console.WriteLine("B - Climatizzazione");
+            Console.WriteLine("C - Scuroni");
+            Console.WriteLine("D - Sicurezza Intrusi");
+            Console.WriteLine("E - Sicurezza Antincendio");
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("X - CHIUDI PROGRAMMA");
+            Console.WriteLine("=====================================");
 
-                if (menuOpzioni2.TryGetValue(input, out string scelta2))
+            ConsoleKey inputHome = Console.ReadKey(true).Key;
+
+            // Uscita dal programma
+            if (inputHome == ConsoleKey.X)
+            {
+                eseguiProgramma = false;
+                Console.WriteLine("\nChiusura in corso... Arrivederci!");
+                continue;
+            }
+
+            // --- MENU ILLUMINAZIONE ---
+            if (inputHome == ConsoleKey.A)
+            {
+                bool menuIlluminazioneAttivo = true;
+
+                while (menuIlluminazioneAttivo)
                 {
-                    Console.WriteLine($"Hai scelto il menù {scelta}");
-                    if(scelta2 == "Lampada") {
-                        Console.WriteLine("--MENU LAMPADA--");
-                        Console.WriteLine("Cosa desideri fare?");
-                        Console.WriteLine("A - Accendi");
-                        Console.WriteLine("B - Spegni");
-                        Console.WriteLine("C - Regola intensità");
-                        Console.WriteLine("D - Cambia colore");
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        var menuOpzioni3 = new Dictionary<ConsoleKey, string>
-                     {
-                        { ConsoleKey.A, "Accendi"},
-                        { ConsoleKey.B, "Spegni"},
-                        { ConsoleKey.C, "Regola intensità"},
-                        { ConsoleKey.D, "Cambia colore"}
-                     };
-                        ConsoleKey input3 = Console.ReadKey(true).Key;
-                        if (menuOpzioni3.TryGetValue(input, out string scelta3))
+                    Console.Clear();
+                    Console.WriteLine("-- MENU ILLUMINAZIONE --");
+                    Console.WriteLine("A - Lampada Standard");
+                    Console.WriteLine("B - Ecolampada");
+                    Console.WriteLine("C - Gruppo di lampade");
+                    Console.WriteLine("D - Matrice di LEDs");
+                    Console.WriteLine("------------------------");
+                    Console.WriteLine("X - TORNA INDIETRO");
+
+                    ConsoleKey inputIllum = Console.ReadKey(true).Key;
+
+                    if (inputIllum == ConsoleKey.X)
+                    {
+                        menuIlluminazioneAttivo = false; // Torna alla Home
+                    }
+                    // --- GESTIONE LAMPADA STANDARD ---
+                    else if (inputIllum == ConsoleKey.A)
+                    {
+                        bool menuLampadaAttivo = true;
+                        while (menuLampadaAttivo)
                         {
-                            if (scelta3 == "Accendi")
+                            Console.Clear();
+                            string stato = lamp.is_on ? "ON" : "OFF";
+                            // NOTA: Qui uso brightness_Perc invece di CurrentBrightness
+                            // Assicurati che brightness_Perc sia PUBLIC nella classe padre LampModel
+                            Console.WriteLine($"-- LAMPADA PHILIPS ({stato}) --");
+                            Console.WriteLine($"Luminosità impostata: {lamp.brightness_Perc}");
+                            Console.WriteLine("-----------------------------");
+                            Console.WriteLine("A - Accendi");
+                            Console.WriteLine("B - Spegni");
+                            Console.WriteLine("C - Regola intensità");
+                            Console.WriteLine("D - Cambia colore");
+                            Console.WriteLine("X - TORNA INDIETRO");
+
+                            ConsoleKey inputLamp = Console.ReadKey(true).Key;
+
+                            if (inputLamp == ConsoleKey.X)
                             {
-                                if (!lamp.is_on)
+                                menuLampadaAttivo = false;
+                            }
+                            else
+                            {
+                                // PULIZIA CONSOLE PRIMA DELL'AZIONE
+                                Console.Clear();
+                                bool attendiInput = true; // Serve per far leggere il messaggio all'utente
+
+                                if (inputLamp == ConsoleKey.A)
                                 {
-                                    lamp.turnOn;
-                                    Console.WriteLine("Lampada accesa!");
+                                    if (!lamp.is_on)
+                                    {
+                                        lamp.turnOn();
+                                        Console.WriteLine("-> Lampada accesa con successo!");
+                                    }
+                                    else Console.WriteLine("-> La lampada è già accesa!");
                                 }
-                                else Console.WriteLine("Lampada già accesa!");
-                            } else if (scelta3 == "spegni")
-                            {
-                                if (lamp.is_on)
+                                else if (inputLamp == ConsoleKey.B)
                                 {
-                                    lamp.turnOff;
-                                    Console.WriteLine("Lampada spenta!");
+                                    if (lamp.is_on)
+                                    {
+                                        lamp.turnOff();
+                                        Console.WriteLine("-> Lampada spenta.");
+                                    }
+                                    else Console.WriteLine("-> La lampada è già spenta!");
                                 }
-                                else Console.WriteLine("Lampada già spenta!");
-                            } else if (scelta3 == "Regola intensità")
-                            {
-                                if (lamp.is_on)
+                                else if (inputLamp == ConsoleKey.C)
                                 {
-                                    lamp.adjustBrightness();
+                                    if (lamp.is_on)
+                                    {
+                                        Console.WriteLine("Inserisci il valore della luminosità (es. 50): ");
+                                        string inputLum = Console.ReadLine();
+                                        if (int.TryParse(inputLum, out int val))
+                                        {
+                                            lamp.adjustBrightness(new Brightness(val));
+                                            Console.Clear(); // Pulisco anche dopo l'input numerico
+                                            Console.WriteLine($"-> Luminosità impostata a: {val}");
+                                        }
+                                        else
+                                        {
+                                            Console.Clear();
+                                            Console.WriteLine("Errore: devi inserire un numero valido.");
+                                        }
+                                    }
+                                    else Console.WriteLine("Accendi prima la lampada!");
                                 }
-                                else Console.WriteLine("Accendi prima la lampada");
-                            } else if (scelta3 == "Cambia colore")
-                            {
-                                if (lamp.is_on)
+                                else if (inputLamp == ConsoleKey.D)
                                 {
-                                    lamp.ChangeColor();
-                                } else Console.WriteLine("Accendi prima la lampada");
-                            } else Console.WriteLine("La scelta non è accettabile");
+                                    if (lamp.is_on)
+                                    {
+                                        Console.WriteLine("-- SCEGLI COLORE --");
+                                        Console.WriteLine("A-White, B-Warm, C-Cool, D-Red, E-Green, F-Blue");
+                                        ConsoleKey colKey = Console.ReadKey(true).Key;
+
+                                        Console.Clear(); // Pulisco subito dopo la scelta colore
+
+                                        if (menuColori.TryGetValue(colKey, out LampColor col))
+                                        {
+                                            lamp.ChangeColor(col);
+                                            Console.WriteLine($"-> Colore cambiato in: {col}");
+                                        }
+                                        else Console.WriteLine("Colore non valido o tasto errato.");
+                                    }
+                                    else Console.WriteLine("Accendi prima la lampada!");
+                                }
+                                else
+                                {
+                                    attendiInput = false; // Se preme un tasto a caso non valido
+                                }
+
+                                if (attendiInput)
+                                {
+                                    Console.WriteLine("\nPremi un tasto per continuare...");
+                                    Console.ReadKey();
+                                }
+                            }
                         }
-                    else if (scelta2 == "Ecolampada") {
-                    
                     }
-                    else if (scelta2 == "Gruppo di lampade") {
-                    
-                    }
-                    else if (scelta2 == "Matrice di LEDs") { 
-                    
+                    // --- GESTIONE ECOLAMPADA ---
+                    else if (inputIllum == ConsoleKey.B)
+                    {
+                        bool menuEcoAttivo = true;
+                        while (menuEcoAttivo)
+                        {
+                            Console.Clear();
+                            string statoEco = ecoLamp.is_on ? "ON" : "OFF";
+                            Console.WriteLine($"-- ECOLAMPADA BEGHELLI ({statoEco}) --");
+                            // Uso brightness_Perc anche qui
+                            Console.WriteLine($"Luminosità Attuale: {ecoLamp.brightness_Perc}");
+                            Console.WriteLine($"Data accensione: {(ecoLamp.startTime.HasValue ? ecoLamp.startTime.ToString() : "Non attiva")}");
+                            Console.WriteLine("-----------------------------------");
+                            Console.WriteLine("A - Accendi");
+                            Console.WriteLine("B - Spegni");
+                            Console.WriteLine("C - Attiva Modalità Eco (Start)");
+                            Console.WriteLine("D - Controlla Modalità Eco (Logica)");
+                            Console.WriteLine("X - TORNA INDIETRO");
+
+                            ConsoleKey inputEco = Console.ReadKey(true).Key;
+
+                            if (inputEco == ConsoleKey.X)
+                            {
+                                menuEcoAttivo = false;
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                bool attendiInput = true;
+
+                                if (inputEco == ConsoleKey.A)
+                                {
+                                    if (!ecoLamp.is_on) { ecoLamp.turnOn(); Console.WriteLine("-> Ecolampada Accesa."); }
+                                    else Console.WriteLine("-> Già accesa.");
+                                }
+                                else if (inputEco == ConsoleKey.B)
+                                {
+                                    if (ecoLamp.is_on) { ecoLamp.turnOff(); Console.WriteLine("-> Ecolampada Spenta."); }
+                                    else Console.WriteLine("-> Già spenta.");
+                                }
+                                else if (inputEco == ConsoleKey.C)
+                                {
+                                    if (ecoLamp.is_on)
+                                    {
+                                        ecoLamp.startEcoMode();
+                                        Console.WriteLine("-> Timer Eco avviato.");
+                                    }
+                                    else Console.WriteLine("Accendi prima la lampada.");
+                                }
+                                else if (inputEco == ConsoleKey.D)
+                                {
+                                    if (ecoLamp.is_on)
+                                    {
+                                        ecoLamp.ecoMode();
+                                        Console.WriteLine("-> Logica Eco eseguita (luminosità aggiornata se necessario).");
+                                    }
+                                    else Console.WriteLine("Accendi prima la lampada.");
+                                }
+                                else
+                                {
+                                    attendiInput = false;
+                                }
+
+                                if (attendiInput)
+                                {
+                                    Console.WriteLine("\nPremi un tasto per continuare...");
+                                    Console.ReadKey();
+                                }
+                            }
+                        }
                     }
                 }
-            else if (scelta == "climatizzazione")
+            }
+            // --- ALTRI MENU ---
+            else if (inputHome == ConsoleKey.B || inputHome == ConsoleKey.C || inputHome == ConsoleKey.D || inputHome == ConsoleKey.E)
             {
-                Console.WriteLine("--MENU CLIMATIZZAZIONE--");
-                Console.WriteLine("Cosa desideri fare?");
-                Console.WriteLine("A - menù Termoregolatore");
-                Console.WriteLine();
-                Console.WriteLine();
-
+                Console.WriteLine("\nFunzionalità non ancora implementata.");
+                Console.WriteLine("Premi un tasto per tornare alla Home...");
+                Console.ReadKey();
             }
-            else if (scelta == "scuroni")
-            {
-                Console.WriteLine("--MENU SCURONI--");
-                Console.WriteLine("cosa desideri fare?");
-                Console.WriteLine("A - menù Scuroni automatici");
-                Console.WriteLine();
-                Console.WriteLine();
-
-
-            }
-            else if (scelta == "sicurezza intrusi")
-            {
-                Console.WriteLine("--MENU SICUREZZA INTRUSI--");
-                Console.WriteLine("Cosa desideri fare?");
-                Console.WriteLine("A - menù Porta blindata");
-                Console.WriteLine();
-                Console.WriteLine();
-
-
-            }
-            else if (scelta == "sicurezza antincendio")
-            { 
-                Console.WriteLine("--MENU SICUREZZA ANTINCENDIO--");
-                Console.WriteLine("Cosa desideri fare?");
-                Console.WriteLine("A - menù Rilevatore di fumo");
-                Console.WriteLine();
-                Console.WriteLine();
-
-
-            }
-
         }
-        else
-        {
-            Console.WriteLine("Tasto non valido");
-        }
-
-
-
-        /*
-        Lamp lamp = new Lamp(60.0, "Philips", 800.0);
-        Lamp lamp2 = new Lamp(60.0, "Philips", 800.0);
-        lamp.turnOn();
-        lamp.turnOff();
-        Console.WriteLine("Lamp is on: " + lamp.is_on);
-        Console.WriteLine("Lamp power: " + lamp.power + " Watt");
-        Console.WriteLine("Lamp brand: " + lamp.brand);
-        Console.WriteLine("Lamp brightness percentage: " + lamp.brightness_Perc);
-        Console.WriteLine("Lamp max brightness: " + lamp.max_brightness + " Lumen");
-        lamp.ChangeColor(LampColor.White);
-        Console.WriteLine("LampColor: " + lamp.Color);
-        lamp.adjustBrightness(23);
-        Console.WriteLine("Lamp brightness percentage: " + lamp.brightness_Perc);
-        Console.WriteLine(lamp.deviceId);
-        Console.WriteLine(lamp.lastModifiedAtUtc);
-        Console.WriteLine(lamp2.deviceId);
-
-        EcoLamp ecolamp = new EcoLamp(50.0, "Osram", 200.0);
-        ecolamp.turnOn();
-        Console.WriteLine(ecolamp.startTime);
-        Console.WriteLine("EcoLamp is on: " + ecolamp.is_on);
-        Console.WriteLine("EcoLamp power: " + ecolamp.power + " Watt");
-        Console.WriteLine("EcoLamp brand: " + ecolamp.brand);
-        Console.WriteLine("EcoLamp brightness percentage: " + ecolamp.brightness_Perc);
-        Console.WriteLine("EcoLamp max brightness: " + ecolamp.max_brightness + " Lumen");
-        ecolamp.adjustBrightness(99);
-        Console.WriteLine("EcoLamp brightness percentage: " + ecolamp.brightness_Perc);
-        ecolamp.ecoMode();
-        Console.WriteLine("EcoLamp brightness percentage: " + ecolamp.brightness_Perc);
-        ecolamp.turnOff();
-
-        LampsRow lampsRow = new LampsRow();
-        lampsRow.addLamp(23.4,"ciao",100.0);
-        lampsRow.turnOn();
-        Console.WriteLine("LampsRow first lamp is on: " + lampsRow.lamps[0].is_on);
-
-        Shutters shutters = new Shutters();
-        ShuttersController autoShutters = new ShuttersController(shutters);
-        autoShutters.Start();
-        Console.WriteLine("la persiana è aperta = ");
-        Console.WriteLine(shutters.is_open);
-        Console.WriteLine("la persiana è chiusa = ");
-        Console.WriteLine(shutters.is_closed);
-        //var webcam = new Webcam();
-        //webcam.Start();
-        AirConditioner air = new AirConditioner(10.0, 3);
-        air.turnOn();
-        Console.WriteLine(air.lastModifiedAtUtc);
-        Console.WriteLine(air.cratedTime);
-        Console.WriteLine(air.air_enabled);
-        Console.WriteLine(air.air_intensity);
-        air.switchIntensity(2);
-        Console.WriteLine(air.air_intensity);
-        air.turnOff();
-        air.turnOn();
-        Console.WriteLine(air.air_intensity);
-        Console.WriteLine(air.lowest_temperature);
-        air.switchTemperature(15.0);
-        Console.WriteLine(air.target_temperature);
-
-
-        Thermostat thermostat = new Thermostat(18.0);
-        thermostat.radiators[0]=new Radiator(0);
-        thermostat.radiators[1] = new Radiator(0);
-        thermostat.SwitchTargetTemperature(22.0);
-        Console.WriteLine("Thermostat target temperature: " + thermostat.current_temperature);
-
-
-        SecureDoor door = new SecureDoor("mypassword", "zarrimako@gmail.com");
-        SendBackupCode sender = new SendBackupCode(door);
-        door.Lock();
-
-        door.Unlock(Console.ReadLine());
-        Console.WriteLine("Door is locked: " + door.is_locked);
-        //door.resetPassword();
-
-        door.Unlock(Console.ReadLine());
-        Console.WriteLine("Door is locked: " + door.is_locked);
-        */
     }
 }

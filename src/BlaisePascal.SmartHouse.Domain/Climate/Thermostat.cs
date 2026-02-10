@@ -1,4 +1,5 @@
 ﻿using BlaisePascal.SmartHouse.Domain.AbstractInterfaces;
+using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace BlaisePascal.SmartHouse.Domain.Climate
         public double current_temperature { get; private set; }
         public double target_temperature { get; protected set; }
         protected bool is_on = false;
-        public AirConditioner air_conditioner { get; protected set; } = new AirConditioner(20.0, 3);
+        public AirConditioner air_conditioner { get; protected set; } = new AirConditioner(20.0, new Air(3));
         public Radiator[] radiators { get; protected set; } = new Radiator[5];
         
         public Thermostat(double Current_temperature) { 
