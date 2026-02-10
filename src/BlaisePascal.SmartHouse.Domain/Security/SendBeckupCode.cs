@@ -19,13 +19,13 @@ namespace BlaisePascal.SmartHouse.Domain.Security
         {
             Random rnd = new Random();
             int numero = rnd.Next();
-            door.SetPassword(numero.ToString());
+            door.SetPassword(new Abstraction.ValObj.Password(numero.ToString()));
 
 
 
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("nikozarro@gmail.com");
-            mail.To.Add(door.mail);
+            mail.To.Add(new MailAddress(door.mail.Value));
             mail.Subject = "Numero random generato dal programma";
             mail.Body = $"Il numero generato è: {numero}";
 
