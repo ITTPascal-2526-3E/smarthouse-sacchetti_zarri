@@ -1,4 +1,5 @@
-﻿using BlaisePascal.SmartHouse.Domain.Climate;
+﻿using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
+using BlaisePascal.SmartHouse.Domain.Climate;
 using BlaisePascal.SmartHouse.Domain.Lamps;
 using BlaisePascal.SmartHouse.Domain.Program;
 using BlaisePascal.SmartHouse.Domain.Security;
@@ -9,6 +10,14 @@ using System.Security.Cryptography.X509Certificates;
 public class Program{
     static void Main(string[] args)
     {
+        Lamp lamp = new Lamp();
+        EcoLamp ecoLamp = new EcoLamp();
+        LampsRow lampsRow = new LampsRow();
+        MatrixLed matrixLed = new MatrixLed();
+
+
+
+
         Console.WriteLine("--MENU SMARTHOUSE--");
         Console.WriteLine("Benvenuto, cosa desideri fare?");
         Console.WriteLine("A - menù illuminazione");
@@ -54,8 +63,55 @@ public class Program{
                 {
                     Console.WriteLine($"Hai scelto il menù {scelta}");
                     if(scelta2 == "Lampada") {
-                    
-                    }
+                        Console.WriteLine("--MENU LAMPADA--");
+                        Console.WriteLine("Cosa desideri fare?");
+                        Console.WriteLine("A - Accendi");
+                        Console.WriteLine("B - Spegni");
+                        Console.WriteLine("C - Regola intensità");
+                        Console.WriteLine("D - Cambia colore");
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        var menuOpzioni3 = new Dictionary<ConsoleKey, string>
+                     {
+                        { ConsoleKey.A, "Accendi"},
+                        { ConsoleKey.B, "Spegni"},
+                        { ConsoleKey.C, "Regola intensità"},
+                        { ConsoleKey.D, "Cambia colore"}
+                     };
+                        ConsoleKey input3 = Console.ReadKey(true).Key;
+                        if (menuOpzioni3.TryGetValue(input, out string scelta3))
+                        {
+                            if (scelta3 == "Accendi")
+                            {
+                                if (!lamp.is_on)
+                                {
+                                    lamp.turnOn;
+                                    Console.WriteLine("Lampada accesa!");
+                                }
+                                else Console.WriteLine("Lampada già accesa!");
+                            } else if (scelta3 == "spegni")
+                            {
+                                if (lamp.is_on)
+                                {
+                                    lamp.turnOff;
+                                    Console.WriteLine("Lampada spenta!");
+                                }
+                                else Console.WriteLine("Lampada già spenta!");
+                            } else if (scelta3 == "Regola intensità")
+                            {
+                                if (lamp.is_on)
+                                {
+                                    lamp.adjustBrightness();
+                                }
+                                else Console.WriteLine("Accendi prima la lampada");
+                            } else if (scelta3 == "Cambia colore")
+                            {
+                                if (lamp.is_on)
+                                {
+                                    lamp.ChangeColor();
+                                } else Console.WriteLine("Accendi prima la lampada");
+                            } else Console.WriteLine("La scelta non è accettabile");
+                        }
                     else if (scelta2 == "Ecolampada") {
                     
                     }

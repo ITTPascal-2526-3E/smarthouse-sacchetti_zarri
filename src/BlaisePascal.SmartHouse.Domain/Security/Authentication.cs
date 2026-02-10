@@ -8,7 +8,7 @@ namespace BlaisePascal.SmartHouse.Domain.Security
 {
     public class Authentication
     {
-
+                            
         public bool isAuthorized { get; private set; }
         public void intialize()
         {

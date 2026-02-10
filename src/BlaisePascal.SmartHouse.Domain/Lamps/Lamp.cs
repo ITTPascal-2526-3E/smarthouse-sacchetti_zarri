@@ -11,6 +11,7 @@ namespace BlaisePascal.SmartHouse.Domain.Lamps
             lastModifiedAtUtc = DateTime.Now;
         }
 
+
         public override void turnOn()
         {
             brightness_Perc = new Brightness(90);
