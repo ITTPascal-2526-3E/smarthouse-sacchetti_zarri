@@ -13,5 +13,10 @@ namespace BlaisePascal.SmartHouse.Domain.Abstraction.ValObj
         {
             Value= Math.Clamp(value, 0, 100);
         }
+
+        public override string ToString()
+        {
+            return this.Value.ToString();
+        }
     }
 }
