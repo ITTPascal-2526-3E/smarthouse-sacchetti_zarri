@@ -203,7 +203,7 @@ public class Program
         while (loop)
         {
             Console.Clear();
-            Console.WriteLine($"LAMPADA PHILIPS: {(lamp.is_on ? "ON" : "OFF")} | Lum: {lamp.brightness_Perc} | Col: {lamp.Color}");
+            Console.WriteLine($"LAMPADA: {(lamp.is_on ? "ON" : "OFF")} | Lum: {lamp.brightness_Perc} | Col: {lamp.Color}");
             Console.WriteLine("A-On, B-Off, C-Lum, D-Colore, X-Esci");
             var k = Console.ReadKey(true).Key;
             if (k == ConsoleKey.X) loop = false;
@@ -217,8 +217,13 @@ public class Program
             else if (k == ConsoleKey.D && lamp.is_on)
             {
                 Console.WriteLine("Scegli A-H per colore...");
+                Console.WriteLine("A-White, B-WarmWhite, C-CoolWhite, D-Red, E-Green, F-Blue, G-Yellow, H-Purple");
                 var c = Console.ReadKey(true).Key;
-                if (menuColori.TryGetValue(c, out LampColor col)) lamp.ChangeColor(col);
+                if (menuColori.TryGetValue(c, out LampColor col))
+                {
+                    lamp.ChangeColor(col);
+                    Console.WriteLine($"Colore cambiato a {lamp.Color}.");
+                } else Console.WriteLine("Scelta colore non valida.");
             }
         }
     }
