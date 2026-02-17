@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Devices\AlarmSystem\" />
     <Folder Include="Devices\Climate\" />
-    <Folder Include="Devices\Lamps\" />
     <Folder Include="Devices\Shutters\" />
     <Folder Include="Devices\Security\" />
   </ItemGroup>
