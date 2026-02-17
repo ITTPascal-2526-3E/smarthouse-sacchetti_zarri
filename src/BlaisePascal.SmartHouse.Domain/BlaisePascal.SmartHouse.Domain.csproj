@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Climate\ClimateAbstraction\**" />
-    <EmbeddedResource Remove="Climate\ClimateAbstraction\**" />
-    <None Remove="Climate\ClimateAbstraction\**" />
+    <Compile Remove="Devices\Climate\ClimateAbstraction\**" />
+    <EmbeddedResource Remove="Devices\Climate\ClimateAbstraction\**" />
+    <None Remove="Devices\Climate\ClimateAbstraction\**" />
   </ItemGroup>
 
   <ItemGroup>

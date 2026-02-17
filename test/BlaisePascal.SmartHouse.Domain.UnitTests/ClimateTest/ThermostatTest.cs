@@ -1,4 +1,4 @@
-using BlaisePascal.SmartHouse.Domain.Climate;
+using BlaisePascal.SmartHouse.Domain.Devices.Climate;
 using System;
 using System.Collections.Generic;
 using System.Linq;

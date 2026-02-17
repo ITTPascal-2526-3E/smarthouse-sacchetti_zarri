@@ -1,4 +1,4 @@
-﻿using BlaisePascal.SmartHouse.Domain.Lamps;
+﻿using BlaisePascal.SmartHouse.Domain.Devices.Lamps;
 using Xunit;
 
 namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest

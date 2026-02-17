@@ -1,12 +1,12 @@
 ﻿using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
-using BlaisePascal.SmartHouse.Domain.Climate;
-using BlaisePascal.SmartHouse.Domain.Lamps;
-using BlaisePascal.SmartHouse.Domain.Security;
-using BlaisePascal.SmartHouse.Domain.Shutters;
 using BlaisePascal.SmartHouse.Domain.AbstractInterfaces; // Assunto per la classe Device
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlaisePascal.SmartHouse.Domain.Devices.Lamps;
+using BlaisePascal.SmartHouse.Domain.Devices.Security;
+using BlaisePascal.SmartHouse.Domain.Devices.Shutters;
+using BlaisePascal.SmartHouse.Domain.Devices.Climate;
 
 public class Program
 {

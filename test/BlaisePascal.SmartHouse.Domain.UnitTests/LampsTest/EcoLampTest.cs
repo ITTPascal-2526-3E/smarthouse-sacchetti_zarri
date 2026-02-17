@@ -1,4 +1,4 @@
-using BlaisePascal.SmartHouse.Domain.Lamps;
+using BlaisePascal.SmartHouse.Domain.Devices.Lamps;
 using System.Security.Cryptography.X509Certificates;
 
 namespace BlaisePascal.SmartHouse.Domain.UnitTests.LampsTest
