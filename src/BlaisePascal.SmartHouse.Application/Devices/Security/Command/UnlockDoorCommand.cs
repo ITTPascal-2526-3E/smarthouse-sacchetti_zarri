@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlaisePascal.SmartHouse.Application.Devices.Lamps.Command
+namespace BlaisePascal.SmartHouse.Application.Devices.Security.Command
 {
-    internal class SwitchLampOn
+    internal class UnlockDoorCommand
     {
     }
 }
