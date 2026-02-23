@@ -1,12 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BlaisePascal.SmartHouse.Domain.Devices.Security.SecurityAbstraction.Repositories;
+using System;
 
-namespace BlaisePascal.SmartHouse.Application.Devices.Security.Command
+namespace BlaisePascal.SmartHouse.Domain.Devices.Security.Command
 {
-    internal class LockDoorCommand
+
+    public class LockDoorCommandHandler
     {
+        private readonly ISecurityRepository _seucurityRepository;
+
+        public LockDoorCommandHandler(ISecurityRepository seucurityRepository)
+        {
+            _seucurityRepository = seucurityRepository;
+        }
+
+        public void Execute(LockDoorCommand command)
+        {
+            var door = _seucurityRepository.GetById(command.DoorId);
+            if (door != null)
+            {
+                door.Lock();
+                _seucurityRepository.Update(door);
+            }
+        }
     }
 }
