@@ -37,7 +37,7 @@ public class Program
         SecureDoor door = new SecureDoor(new Password("1234"), new Email("admin@house.com"));
 
         // --- SCURONI ---
-        Shutters shutters = new Shutters();
+        Shutter shutters = new Shutter();
 
         // Aggiungo tutto alla lista globale per la visualizzazione riassuntiva
         allDevices.Add(lamp);
@@ -178,7 +178,7 @@ public class Program
         }
     }
 
-    static void MenuScuroni(Shutters shutters)
+    static void MenuScuroni(Shutter shutters)
     {
         Console.Clear();
         Console.WriteLine("-- MENU SCURONI --");
@@ -480,7 +480,7 @@ public class Program
         if (dev is Webcam wc)
             return $"ID Cam: {wc.cam_Id} | Stato: Ready"; // Webcam ha cam_Id specifico
 
-        if (dev is Shutters sh)
+        if (dev is Shutter sh)
             return $"ID Shutter: {sh.shutter_Id} | Aperto: {sh.is_open}"; // Shutters ha shutter_Id specifico
 
         return "Stato sconosciuto";

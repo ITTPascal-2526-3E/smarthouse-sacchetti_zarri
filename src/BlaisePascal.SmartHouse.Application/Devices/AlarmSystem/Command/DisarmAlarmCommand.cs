@@ -3,10 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlaisePascal.SmartHouse.Domain.Devices.AlarmSystem.AlarmSystemInterface;
 
 namespace BlaisePascal.SmartHouse.Application.Devices.AlarmSystem.Command
 {
-    internal class DisarmAlarmCommand
+    public class DisarmAlarmCommand
     {
+        private readonly IAlarmSystemRepository _AlarmSystemRepository;
+        public DisarmAlarmCommand(IAlarmSystemRepository AlarmSystemRepository)
+        {
+            _AlarmSystemRepository = AlarmSystemRepository;
+        }
+        public void Execute(Guid id)
+        {
+            var alarmSystem = _AlarmSystemRepository.GetById(id);
+            if (alarmSystem != null)
+            {
+                alarmSystem.turnOff();
+                _AlarmSystemRepository.Update(alarmSystem);
+            }
+        }
     }
 }

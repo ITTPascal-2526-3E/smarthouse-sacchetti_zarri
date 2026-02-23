@@ -9,13 +9,13 @@ namespace BlaisePascal.SmartHouse.Domain.Devices.Shutters
 {
     public class ShuttersController
     {
-        private Shutters parent;
+        private Shutter parent;
 
         public bool status { get; private set; }
         public bool Control { get; private set; }
 
 
-        public ShuttersController(Shutters Parent)
+        public ShuttersController(Shutter Parent)
         {
             parent = Parent;
         }
@@ -29,15 +29,11 @@ namespace BlaisePascal.SmartHouse.Domain.Devices.Shutters
 
                 if (tasto.Key == ConsoleKey.A)
                 {
-                    parent.is_open=true;
-                    parent.is_closed = false;
-                    status = true;
+                    parent.Open();
                 }
                 else if (tasto.Key == ConsoleKey.C)
                 {
-                    parent.is_closed = true;
-                    parent.is_open = false;
-                    status = false;
+                    parent.Close();
                 }
                 else
                 {

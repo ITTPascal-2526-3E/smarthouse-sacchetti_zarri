@@ -8,10 +8,10 @@ namespace BlaisePascal.SmartHouse.Domain.Devices.Shutters.Repositories
 {
     public interface IShutterRepository
     {
-        void Add(Shutters shutter);
-        void Update(Shutters shutter);
+        void Add(Shutter shutter);
+        void Update(Shutter shutter);
         void Remove(Guid id);
-        Shutters GetById(Guid id);
-        List<Shutters> GetAll();
+        Shutter GetById(Guid id);
+        List<Shutter> GetAll();
     }
 }
