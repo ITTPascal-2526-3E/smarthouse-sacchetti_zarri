@@ -1,4 +1,6 @@
-﻿using BlaisePascal.SmartHouse.Domain.Devices.Security.SecurityAbstraction.Repositories;
+﻿using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
+using BlaisePascal.SmartHouse.Domain.Devices.Security;
+using BlaisePascal.SmartHouse.Domain.Devices.Security.SecurityAbstraction.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,24 +9,24 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Application.Devices.Security.Command
 {
-    public class RemoveSecureDoorCommand
+    public class RemoveSecureDoorCommandId
     {
-        public Guid DoorId { get; set; }
+        public Guid WebcamId { get; set; }
     }
-
-    public class RemoveSecureDoorCommandHandler
+    public class RemoveSecureDoorCommand
     {
         private readonly ISecurityRepository _repository;
 
-        public RemoveSecureDoorCommandHandler(ISecurityRepository repository)
+        public RemoveSecureDoorCommand(ISecurityRepository repository)
         {
             _repository = repository;
         }
 
-        public void Handle(RemoveSecureDoorCommand command)
+
+        public void execute(RemoveWebcamCommandId command)
         {
-            _repository.Remove(command.DoorId);
+
+            _repository.Remove(command.WebcamId);
         }
     }
-}
 }

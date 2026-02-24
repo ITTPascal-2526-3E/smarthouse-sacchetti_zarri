@@ -13,6 +13,13 @@ namespace BlaisePascal.SmartHouse.Domain.Devices.Security.SecurityAbstraction.Re
         void Update(SecureDoor secureDoor);
         void Remove(Guid id);
         SecureDoor GetById(Guid id);
-        List<SecureDoor> GetAll();
+        List<SecureDoor> GetAllDoors();
+       
+        void Add(Webcam webcam);
+        void Update(Webcam webcam);
+        void RemoveWebcam(Guid id);
+        Webcam GetWebcamById(Guid id);
+        List<Webcam> GetAllWebcams();
+
     }
 }

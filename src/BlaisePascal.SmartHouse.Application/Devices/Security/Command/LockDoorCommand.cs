@@ -1,26 +1,29 @@
-﻿using BlaisePascal.SmartHouse.Domain.Devices.Security.SecurityAbstraction.Repositories;
+﻿using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
+using BlaisePascal.SmartHouse.Domain.Devices.Security.SecurityAbstraction.Repositories;
 using System;
 
 namespace BlaisePascal.SmartHouse.Domain.Devices.Security.Command
 {
 
-    public class LockDoorCommandHandler
+    public class LockDoorCommandId
     {
-        private readonly ISecurityRepository _seucurityRepository;
+        public Guid DoorId { get; set; }
+    }
+    public class LockDoorCommand
+    {
+        private readonly ISecurityRepository _repository;
 
-        public LockDoorCommandHandler(ISecurityRepository seucurityRepository)
+
+        public LockDoorCommand(ISecurityRepository repository)
         {
-            _seucurityRepository = seucurityRepository;
+            _repository = repository;
         }
 
-        public void Execute(LockDoorCommand command)
+        public void Execute()
         {
-            var door = _seucurityRepository.GetById(command.DoorId);
-            if (door != null)
-            {
-                door.Lock();
-                _seucurityRepository.Update(door);
-            }
+            var door = new SecureDoor(new Password("ciaociao"), new Email("mail"));
+            door.Lock();
+            _repository.Update(door);
         }
     }
 }

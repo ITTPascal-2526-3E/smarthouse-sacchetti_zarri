@@ -4,7 +4,7 @@ using System;
 
 namespace BlaisePascal.SmartHouse.Domain.Devices.Security.Command
 {
-    public class RemoveSecureDoorCommand
+    public class AddSecureDoorCommandId
     {
         public Guid DoorId { get; set; }
     }
