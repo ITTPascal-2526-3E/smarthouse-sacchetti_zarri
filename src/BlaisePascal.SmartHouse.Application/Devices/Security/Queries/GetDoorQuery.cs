@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Application.Devices.Security.Queries
 {
-    internal class GetDoorQuery
+    public class GetDoorCommandId
     {
+        public Guid DoorId { get; set; }
+    }
+    public sealed record GetDoorQuery(Guid DoorId)
+    {
+        public static GetDoorQuery FromCommandId(GetDoorCommandId command)
+        {
+            return new GetDoorQuery(command.DoorId);
+        }
     }
 }

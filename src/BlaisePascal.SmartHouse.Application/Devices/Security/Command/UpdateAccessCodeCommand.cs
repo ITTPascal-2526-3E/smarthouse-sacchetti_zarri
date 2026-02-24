@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Application.Devices.Security.Command
 {
-    internal class UpdateAccessCodeCommand
+    public class UpdateAccessCodeCommand
     {
     }
 }
