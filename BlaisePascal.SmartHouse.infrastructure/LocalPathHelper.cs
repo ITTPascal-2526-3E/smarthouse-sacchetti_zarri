@@ -4,9 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlaisePascal.SmartHouse.infrastructure
+public class LocalPathHelper
 {
-    public class LocalPathHelper
+    public static string GetSolutionRoot()
     {
+        var dir = new DirectoryInfo(AppContext.BaseDirectory);
+
+        while (dir != null && !Directory.Exists(Path.Combine(dir.FullName, "src")))
+        {
+            dir = dir.Parent;
+        }
+
+        if (dir == null)
+            throw new Exception("Solution root not found");
+
+        return dir.FullName;
     }
 }

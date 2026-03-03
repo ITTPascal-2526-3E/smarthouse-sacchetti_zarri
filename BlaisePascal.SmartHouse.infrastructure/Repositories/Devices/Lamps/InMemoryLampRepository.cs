@@ -14,7 +14,11 @@ namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
         public InMemoryLampRepository()
         {
             _lamps = new List<Lamp>();
+            {
+                new Lamp();
+            }
         }
+
 
         public void Add(Lamp lamp)
         {
@@ -29,6 +33,7 @@ namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
         {
             return _lamps;
         }
+
 
         public Lamp GetById(Guid id)
         {
