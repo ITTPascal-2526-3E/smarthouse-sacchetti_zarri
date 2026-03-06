@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlaisePascal.SmartHouse.Domain.Devices.Lamps.LampsInterfaces.Repositories;
+using BlaisePascal.SmartHouse.Domain.Devices.Lamps;
+using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
 
 namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
 {
@@ -28,9 +31,9 @@ namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
             return Load();
         }
 
-        public Lamps GetById(Guid id)
+        public Lamp GetById(Guid id)
         {
-            return Load().First(l => l.Id == id);
+            return Load().First(l => l.deviceId == id);
         }
 
         private void Save(List<Lamp> lamps)
@@ -44,12 +47,10 @@ namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
             foreach (var dto in dtos)
             {
                 lines.Add(string.Join(",",
-                    dto.id,
-                    dto.Name.Value,
-                    dto.Brand.Value,
-                    dto.Color.Value,
-                    dto.Brightness.Value,
-                    dto.IsOn.Value));
+                    dto.deviceId,
+                    dto.brand.Value,
+                    dto.Color,
+                    dto.is_on));
             }
 
             File.WriteAllLines(_filePath, lines);
@@ -63,12 +64,9 @@ namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
             {
                 var parts = line.Split(',');
                 var dto = new Lamp(
-                    Guid.Parse(parts[0]),
+                    new Power(int.Parse(parts[0])),
                     new Name(parts[1]),
-                    new Brand(parts[2]),
-                    new Color(parts[3]),
-                    new Brightness(int.Parse(parts[4])),
-                    new IsOn(bool.Parse(parts[5]))
+                    new Brightness(int.Parse(parts[4]))
                 );
                 lamps.Add(dto);
             }
@@ -78,7 +76,7 @@ namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
         public void Update(Lamp lamp)
         {
             var lamps = Load();
-            var index = lamps.FindIndex(l => l.Id == lamp.Id);
+            var index = lamps.FindIndex(l => l.deviceId == lamp.deviceId);
             if (index >= 0)
             {
                 lamps[index] = lamp;
@@ -97,7 +95,7 @@ namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
         public void Remove(Lamp lamp)
         {
             var lamps = Load();
-            lamps.RemoveAll(l => l.Id == lamp.Id);
+            lamps.RemoveAll(l => l.deviceId == lamp.deviceId);
             Save(lamps);
         }
     }

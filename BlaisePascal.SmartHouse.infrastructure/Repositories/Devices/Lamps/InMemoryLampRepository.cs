@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlaisePascal.SmartHouse.Domain.Devices.Lamps.LampsInterfaces.Repositories;
+using BlaisePascal.SmartHouse.Domain.Devices.Lamps;
+using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
+
 
 namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
 {
@@ -15,7 +18,7 @@ namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
         {
             _lamps = new List<Lamp>();
             {
-                new Lamp();
+                new Lamp(new Power(10),new Name("lampada"),new Brightness(10));
             }
         }
 
@@ -37,7 +40,7 @@ namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
 
         public Lamp GetById(Guid id)
         {
-            return _lamps.FirstOrDefault(l => l.Id == id);
+            return _lamps.FirstOrDefault(l => l.deviceId == id);
         }
 
         public void Remove(Lamp lamp)
