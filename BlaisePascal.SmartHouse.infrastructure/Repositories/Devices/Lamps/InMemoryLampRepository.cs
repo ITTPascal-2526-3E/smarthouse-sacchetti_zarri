@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BlaisePascal.SmartHouse.Domain.Devices.Lamps.LampsInterfaces.Repositories;
 using BlaisePascal.SmartHouse.Domain.Devices.Lamps;
 using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
-
 
 namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
 {
@@ -16,16 +13,15 @@ namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
 
         public InMemoryLampRepository()
         {
-            _lamps = new List<Lamp>();
+            _lamps = new List<Lamp>
             {
-                new Lamp(new Power(10),new Name("lampada"),new Brightness(10));
-            }
+                new Lamp(new Power(10), new Name("Lampada Salotto"), new Brightness(100))
+            };
         }
-
 
         public void Add(Lamp lamp)
         {
-            if(lamp == null)
+            if (lamp == null)
             {
                 throw new ArgumentNullException(nameof(lamp));
             }
@@ -37,7 +33,6 @@ namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
             return _lamps;
         }
 
-
         public Lamp GetById(Guid id)
         {
             return _lamps.FirstOrDefault(l => l.deviceId == id);
@@ -45,7 +40,7 @@ namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
 
         public void Remove(Lamp lamp)
         {
-            if(lamp == null)
+            if (lamp == null)
             {
                 throw new ArgumentNullException(nameof(lamp));
             }
@@ -54,8 +49,7 @@ namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
 
         public void Update(Lamp lamp)
         {
-            //
-        }
 
+        }
     }
 }

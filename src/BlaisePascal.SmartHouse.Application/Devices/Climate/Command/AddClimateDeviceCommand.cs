@@ -9,6 +9,6 @@ namespace BlaisePascal.SmartHouse.Application.Devices.Climate.Command
 {
     public class AddClimateDeviceCommand
     {
-        private readonly IClimateRepository _lampRepository;
+
     }
 }
