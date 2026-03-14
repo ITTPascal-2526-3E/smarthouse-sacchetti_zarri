@@ -5,6 +5,7 @@ namespace BlaisePascal.SmartHouse.Domain.Devices.Lamps
     public class Lamp : LampModel
     {
         public Name brand2;
+        private int lastBright=90;
         public Lamp(Power Power,Name Brand,Brightness Max_brightness)
         {
             brightness_Perc = new Brightness(0);
@@ -16,13 +17,14 @@ namespace BlaisePascal.SmartHouse.Domain.Devices.Lamps
 
         public override void turnOn()
         {
-            brightness_Perc = new Brightness(90);
+            brightness_Perc = new Brightness(lastBright);
             is_on = true;
             lastModifiedAtUtc = DateTime.Now;
         }
 
         public override void turnOff()
         {
+            lastBright = brightness_Perc.Value;
             brightness_Perc = new Brightness(0);
             is_on = false;
             lastModifiedAtUtc = DateTime.Now;
