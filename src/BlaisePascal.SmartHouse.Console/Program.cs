@@ -38,9 +38,9 @@ namespace BlaisePascal.SmartHouse
                 switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.D1: case ConsoleKey.NumPad1: lightUI.MenuIlluminazione(); break;
-                    case ConsoleKey.D2: case ConsoleKey.NumPad2: climateUI.MenuClima(); break;
+                    case ConsoleKey.D2: case ConsoleKey.NumPad2: climateUI.MenuClimatizzazione(); break;
                     case ConsoleKey.D3: case ConsoleKey.NumPad3: securityUI.MenuSicurezza(); break;
-                    case ConsoleKey.D4: case ConsoleKey.NumPad4: shuttersUI.MenuScuroni(); break;
+                    case ConsoleKey.D4: case ConsoleKey.NumPad4: shuttersUI.MenuTapparelle(); break;
                     case ConsoleKey.L: hub.MostraListaDispositivi(); break;
                     case ConsoleKey.X:
                         esegui = false;

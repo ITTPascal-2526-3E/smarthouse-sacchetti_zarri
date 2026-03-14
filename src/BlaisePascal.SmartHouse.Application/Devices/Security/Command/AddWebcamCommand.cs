@@ -10,24 +10,20 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Application.Devices.Security.Command
 {
-    public class AddWebcamCommandId
-    {
-        public Guid WebcamId { get; set; }
-    }
     public class AddWebcamCommand
     {
-        private readonly ISecurityRepository _repository;
+        private readonly ISecurityRepository _securityRepository;
 
 
         public AddWebcamCommand(ISecurityRepository repository)
         {
-            _repository = repository;
+            _securityRepository = repository;
         }
 
-        public void execute()
+        public void Execute()
         {
             var webcam = new Webcam(10);
-            _repository.Add(webcam);
+            _securityRepository.Add(webcam);
         }
     }
 }

@@ -9,25 +9,21 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Application.Devices.Security.Command
 {
-    public class AuthenticateDoorCommandId
-    {
-        public Guid DoorId { get; set; }
-    }
     public class AuthenticateCommand
     {
-        private readonly ISecurityRepository _repository;
+        private readonly ISecurityRepository _securityRepository;
 
 
         public AuthenticateCommand(ISecurityRepository repository)
         {
-            _repository = repository;
+            _securityRepository = repository;
         }
 
-        public void execute()
+        public void Execute(Guid id)
         {
-            var door = new SecureDoor(new Password("ciaociao"), new Email("mail"));
-            door.Unlock(new Password("ciaociao"));
-            _repository.Update(door);
+            var door = _securityRepository.GetById(id); 
+            door.Authentication.Authenticate("Admin");
+            _securityRepository.Update(door);
         }
     }
 }

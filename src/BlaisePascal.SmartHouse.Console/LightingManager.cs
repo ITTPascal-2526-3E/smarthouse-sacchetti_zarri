@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using BlaisePascal.SmartHouse.Domain.Devices.Lamps;
 using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
+// Namespace Application Layer
+using BlaisePascal.SmartHouse.Application.Devices.Lamps.Command;
+using BlaisePascal.SmartHouse.Application.Devices.Lamps.Queries;
 
 namespace BlaisePascal.SmartHouse.UI
 {
     public class LightingManager
     {
         private SmartHouseHub _hub;
+
+        // L'hub contiene l'istanza del tuo InMemoryLampRepository
         public LightingManager(SmartHouseHub hub) { _hub = hub; }
 
         public void MenuIlluminazione()
@@ -17,7 +23,7 @@ namespace BlaisePascal.SmartHouse.UI
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("╔══════════════════════════════════════════════════╗");
-                Console.WriteLine("║                 HUB ILLUMINAZIONE                ║");
+                Console.WriteLine("║                  HUB ILLUMINAZIONE               ║");
                 Console.WriteLine("╚══════════════════════════════════════════════════╝");
                 Console.ResetColor();
                 Console.WriteLine(" [1] Installa Nuovo Punto Luce (Lamp, Eco, Led...)");
@@ -68,9 +74,17 @@ namespace BlaisePascal.SmartHouse.UI
                 Console.Write("Watt: ");
                 if (!int.TryParse(Console.ReadLine(), out int watt)) watt = 10;
 
-                if (tipo == ConsoleKey.D1) { _hub.Lampade.Add(new Lamp(new Power(watt), new Name(brand), new Brightness(100))); MessaggioSuccesso("Lampada Standard"); }
-                if (tipo == ConsoleKey.D2) { _hub.Lampade.Add(new EcoLamp(new Power(watt), new Name(brand), new Brightness(100))); MessaggioSuccesso("EcoLamp"); }
-                if (tipo == ConsoleKey.D3) { _hub.SingoliLed.Add(new Led(new Power(watt), new Name(brand), new Brightness(100))); MessaggioSuccesso("Singolo LED"); }
+                Console.Write("Luminosità Massima (es. 100): ");
+                if (!int.TryParse(Console.ReadLine(), out int maxBrightness) || maxBrightness < 1) maxBrightness = 100;
+
+                // === COMMAND: APPLICATION LAYER ===
+                if (tipo == ConsoleKey.D1)
+                {
+                    new AddLampCommand(_hub.LampRepository).Execute(brand, maxBrightness, watt);
+                    MessaggioSuccesso("Lampada Standard");
+                }
+                if (tipo == ConsoleKey.D2) { _hub.Lampade.Add(new EcoLamp(new Power(watt), new Name(brand), new Brightness(maxBrightness))); MessaggioSuccesso("EcoLamp"); }
+                if (tipo == ConsoleKey.D3) { _hub.SingoliLed.Add(new Led(new Power(watt), new Name(brand), new Brightness(maxBrightness))); MessaggioSuccesso("Singolo LED"); }
             }
         }
 
@@ -82,9 +96,36 @@ namespace BlaisePascal.SmartHouse.UI
             Console.ReadKey();
         }
 
+        private string EstraiNomeBrand(object luce)
+        {
+            if (luce is MatrixLed ml) return $"Pannello {ml.matrix?.GetLength(0)}x{ml.matrix?.GetLength(1)}";
+
+            dynamic dynLuce = luce;
+            try { return dynLuce.brand.Value.ToString(); } catch { }
+            try { return dynLuce.brand.ToString(); } catch { }
+            try { return dynLuce.brand2.Value.ToString(); } catch { }
+            try { return dynLuce.brand2.ToString(); } catch { }
+            try { return dynLuce.Brand.Value.ToString(); } catch { }
+            try { return dynLuce.Brand.ToString(); } catch { }
+            try { return dynLuce.Nome.Value.ToString(); } catch { }
+
+            return "Generico";
+        }
+
         private void GestisciTutteLeLuci()
         {
-            var tutteLeLuci = _hub.TutteLeLuci;
+            // === QUI USIAMO LE QUERIES DELL'APPLICATION LAYER PER LE LAMPADE STANDARD ===
+            var tutteLeLuci = new List<dynamic>();
+
+            // 1. Recuperiamo le lampade dal Repository usando la Query apposita
+            var lampadeStandard = new GetAllLampsQuery(_hub.LampRepository).Execute();
+            if (lampadeStandard != null) tutteLeLuci.AddRange(lampadeStandard);
+
+            // 2. Aggiungiamo le altre luci "speciali" che non passano per l'Application Layer (gestione diretta)
+            tutteLeLuci.AddRange(_hub.Lampade);     // EcoLamp
+            tutteLeLuci.AddRange(_hub.SingoliLed);  // Led singoli
+            tutteLeLuci.AddRange(_hub.MatriciLed);  // Matrici
+
             if (tutteLeLuci.Count == 0)
             {
                 Console.WriteLine("\nNessuna luce installata. Aggiungine una prima!");
@@ -101,28 +142,16 @@ namespace BlaisePascal.SmartHouse.UI
             {
                 var luce = tutteLeLuci[i];
                 string tipo = luce.GetType().Name;
-                string nome = "Sconosciuto";
+                string nome = EstraiNomeBrand(luce);
                 bool isAccesa = false;
 
-                // Estraiamo il nome e lo stato in base al tipo di luce
-                if (luce is Lamp l)
+                if (luce is Lamp l) isAccesa = l.is_on;
+                else if (luce is Led led) isAccesa = led.is_on;
+                else if (luce is MatrixLed ml && ml.matrix != null)
                 {
-                    isAccesa = l.is_on;
-                    nome = l.brand2.Value; // Le Lamp usano brand2
-                }
-                else if (luce is Led led)
-                {
-                    isAccesa = led.is_on;
-                    // Uso dynamic per leggere .brand in modo sicuro senza errori di compilazione
-                    try { nome = ((dynamic)led).brand.Value; } catch { nome = "Led"; }
-                }
-                else if (luce is MatrixLed ml)
-                {
-                    if (ml.matrix != null) foreach (var p in ml.matrix) if (p != null && p.is_on) isAccesa = true;
-                    nome = $"Pannello {ml.matrix?.GetLength(0)}x{ml.matrix?.GetLength(1)}";
+                    foreach (var p in ml.matrix) if (p != null && p.is_on) isAccesa = true;
                 }
 
-                // Formattiamo la stringa in modo che sia allineata e bella da vedere
                 string infoRiga = $"[{i + 1}] {tipo} \"{nome}\"";
                 Console.Write($"{infoRiga,-35} -> ");
 
@@ -135,11 +164,7 @@ namespace BlaisePascal.SmartHouse.UI
             if (int.TryParse(Console.ReadLine(), out int index) && index > 0 && index <= tutteLeLuci.Count)
             {
                 var luceScelta = tutteLeLuci[index - 1];
-
-                // Passo il nome personalizzato anche al titolo del menù!
-                string titoloMenu = "LUCE";
-                try { titoloMenu = ((dynamic)luceScelta).brand2.Value; } catch { }
-                try { titoloMenu = ((dynamic)luceScelta).brand.Value; } catch { }
+                string titoloMenu = EstraiNomeBrand(luceScelta);
 
                 if (luceScelta is Lamp lampada) GestioneBase(lampada, $"LAMPADA ({titoloMenu})");
                 else if (luceScelta is Led singoloLed) GestioneBase(singoloLed, $"LED ({titoloMenu})");
@@ -160,23 +185,47 @@ namespace BlaisePascal.SmartHouse.UI
                 if (luce.is_on) { Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine("● ACCESA"); }
                 else { Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("○ SPENTA"); }
                 Console.ResetColor();
-                Console.WriteLine($"Luminosità: {luce.brightness_Perc.Value}%");
+
+                int luminositaAttuale = 0;
+                try { luminositaAttuale = luce.brightness_Perc.Value; } catch { }
+                Console.WriteLine($"Luminosità: {luminositaAttuale}%");
+
                 Console.WriteLine("-----------------------------------");
                 Console.WriteLine(" [A] Accendi  | [B] Spegni");
                 Console.WriteLine(" [C] Regola Luminosità");
                 Console.WriteLine(" [X] Indietro");
 
-                switch (Console.ReadKey(true).Key)
+                var tastoPremuto = Console.ReadKey(true).Key;
+
+                switch (tastoPremuto)
                 {
-                    case ConsoleKey.A: luce.turnOn(); break;
-                    case ConsoleKey.B: luce.turnOff(); break;
+                    case ConsoleKey.A:
+                        if (luce is Lamp) new SwitchLampOnCommand(_hub.LampRepository).Execute(luce.deviceId);
+                        else luce.turnOn();
+                        break;
+                    case ConsoleKey.B:
+                        if (luce is Lamp) new SwitchLampOffCommand(_hub.LampRepository).Execute(luce.deviceId);
+                        else luce.turnOff();
+                        break;
                     case ConsoleKey.C:
                         if (!luce.is_on) break;
                         Console.Write("\nNuova luminosità (1-100): ");
                         if (int.TryParse(Console.ReadLine(), out int lum) && lum >= 1 && lum <= 100)
-                            luce.adjustBrightness(new Brightness(lum));
+                        {
+                            if (luce is Lamp) new ChangeIntensityCommand(_hub.LampRepository).Execute(luce.deviceId, lum);
+                            else luce.adjustBrightness(new Brightness(lum));
+                        }
                         break;
-                    case ConsoleKey.X: attivo = false; break;
+                    case ConsoleKey.X:
+                        attivo = false;
+                        break;
+                }
+
+                // === QUERY: APPLICATION LAYER ===
+                // Ricarichiamo lo stato con la Query aggiornata dal Repository
+                if (luce is Lamp && tastoPremuto != ConsoleKey.X)
+                {
+                    luce = new GetLampQuery(_hub.LampRepository).Execute(luce.deviceId);
                 }
             }
         }

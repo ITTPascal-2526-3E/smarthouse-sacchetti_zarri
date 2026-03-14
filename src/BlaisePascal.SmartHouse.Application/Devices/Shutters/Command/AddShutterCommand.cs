@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlaisePascal.SmartHouse.Domain.Devices.Shutters.Repositories;
+using BlaisePascal.SmartHouse.Domain.Devices.Security.SecurityAbstraction.Repositories;
+using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
 
 namespace BlaisePascal.SmartHouse.Application.Devices.Shutters.Command
 {
@@ -17,9 +19,9 @@ namespace BlaisePascal.SmartHouse.Application.Devices.Shutters.Command
             _ShutterRepository = ShutterRepository;
         }
 
-        public void Execute()
+        public void Execute(Name brand)
         {
-            var shutter = new Domain.Devices.Shutters.Shutter();
+            var shutter = new Domain.Devices.Shutters.Shutter(brand);
             _ShutterRepository.Add(shutter);
         }
     }

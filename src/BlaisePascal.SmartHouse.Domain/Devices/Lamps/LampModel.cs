@@ -17,6 +17,7 @@ namespace BlaisePascal.SmartHouse.Domain.Devices.Lamps
         public bool is_on { get; protected set; }
         public Name brand { get; protected set; }
         public LampColor Color { get; protected set; }
+        protected int lastBright = 90;
         public abstract void adjustBrightness(Brightness new_bright_perc);
 
     }

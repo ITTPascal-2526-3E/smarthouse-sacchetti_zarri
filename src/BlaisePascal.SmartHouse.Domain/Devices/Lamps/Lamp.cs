@@ -4,13 +4,11 @@ namespace BlaisePascal.SmartHouse.Domain.Devices.Lamps
     
     public class Lamp : LampModel
     {
-        public Name brand2;
-        private int lastBright=90;
         public Lamp(Power Power,Name Brand,Brightness Max_brightness)
         {
             brightness_Perc = new Brightness(0);
             is_on = false;
-            brand2 = Brand;
+            brand = Brand;
             lastModifiedAtUtc = DateTime.Now;
         }
 

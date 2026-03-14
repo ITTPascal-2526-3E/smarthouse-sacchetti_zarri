@@ -13,11 +13,14 @@ namespace BlaisePascal.SmartHouse.Domain.Devices.Climate
     {
         public double current_temperature { get; private set; }
         public double target_temperature { get; protected set; }
-        protected bool is_on = false;
+        public Name brand { get; private set; }
+        public bool is_on { get; protected set; } = false;
         public AirConditioner air_conditioner { get; protected set; } = new AirConditioner(20.0, new Air(3));
         public Radiator[] radiators { get; protected set; } = new Radiator[5];
         
-        public Thermostat(double Current_temperature) { 
+        public Thermostat(Name Brand,double Current_temperature)
+        { 
+            brand = Brand;
             current_temperature = Current_temperature;
         }
 

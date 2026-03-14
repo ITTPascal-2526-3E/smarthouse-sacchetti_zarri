@@ -15,17 +15,19 @@ namespace BlaisePascal.SmartHouse.Domain.Devices.Lamps
         {
             brightness_Perc = new Brightness(0);
             is_on = false;
+            brand = Brand;
         }
 
         public override void turnOn()
         {
-            brightness_Perc = new Brightness(100);
+            brightness_Perc = new Brightness(lastBright);
             is_on = true;
             lastModifiedAtUtc = DateTime.Now;
         }
 
         public override void turnOff()
         {
+            lastBright = brightness_Perc.Value;
             brightness_Perc = new Brightness(0);
             is_on = false;
             lastModifiedAtUtc = DateTime.Now;

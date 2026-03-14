@@ -13,19 +13,22 @@ namespace BlaisePascal.SmartHouse.Domain.Devices.Security
 {
     public sealed class SecureDoor : ILockable,  IPassword
     {
+        public Name brand { get; private set; }
+        public Guid deviceId { get; set; } = Guid.NewGuid();
 
-        Authentication Authentication = new Authentication();
+        public Authentication Authentication = new Authentication();
         public bool is_locked { get; private set; } 
         public Email mail { get; private set; }
         public Password password { get; protected set; }
 
 
 
-        public SecureDoor(Password password1, Email email)
+        public SecureDoor(Name Brand,Password password1, Email email)
         {
             password = password1;
             mail = email;
             is_locked = true;
+            brand = Brand;
         }
         public void Lock()
         {

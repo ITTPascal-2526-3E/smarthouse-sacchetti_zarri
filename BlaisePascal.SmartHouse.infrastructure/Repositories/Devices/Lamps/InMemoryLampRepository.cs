@@ -15,7 +15,6 @@ namespace BlaisePascal.SmartHouse.infrastructure.Repositories.Devices.Lamps
         {
             _lamps = new List<Lamp>
             {
-                new Lamp(new Power(10), new Name("Lampada Salotto"), new Brightness(100))
             };
         }
 

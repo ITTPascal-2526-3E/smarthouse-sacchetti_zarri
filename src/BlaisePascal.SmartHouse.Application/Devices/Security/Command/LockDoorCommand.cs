@@ -4,26 +4,21 @@ using System;
 
 namespace BlaisePascal.SmartHouse.Domain.Devices.Security.Command
 {
-
-    public class LockDoorCommandId
-    {
-        public Guid DoorId { get; set; }
-    }
     public class LockDoorCommand
     {
-        private readonly ISecurityRepository _repository;
+        private readonly ISecurityRepository _securityRepository;
 
 
         public LockDoorCommand(ISecurityRepository repository)
         {
-            _repository = repository;
+            _securityRepository = repository;
         }
 
-        public void Execute()
+        public void Execute(Guid id)
         {
-            var door = new SecureDoor(new Password("ciaociao"), new Email("mail"));
+            var door = _securityRepository.GetById(id);
             door.Lock();
-            _repository.Update(door);
+            _securityRepository.Update(door);
         }
     }
 }

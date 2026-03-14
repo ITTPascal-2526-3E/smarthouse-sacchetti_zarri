@@ -7,24 +7,20 @@ using System.Threading.Tasks;
 
 namespace BlaisePascal.SmartHouse.Application.Devices.Security.Command
 {
-    public class RemoveWebcamCommandId
-    {
-        public Guid WebcamId { get; set; }
-    }
     public class RemoveWebcamCommand
     {
-        private readonly ISecurityRepository _repository;
+        private readonly ISecurityRepository _securityRepository;
 
         public RemoveWebcamCommand(ISecurityRepository repository)
         {
-            _repository = repository;
+            _securityRepository = repository;
         }
 
 
-        public void execute(RemoveWebcamCommandId command)
+        public void Execute(Guid id)
         {
-
-            _repository.Remove(command.WebcamId);
+            var webcam = _securityRepository.GetById(id);
+            _securityRepository.Remove(webcam.deviceId);
         }
     }
 }

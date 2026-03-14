@@ -1,5 +1,6 @@
 ﻿using System;
 using BlaisePascal.SmartHouse.Domain.Devices.Shutters;
+using BlaisePascal.SmartHouse.Domain.Abstraction.ValObj;
 
 namespace BlaisePascal.SmartHouse.UI
 {
@@ -8,15 +9,15 @@ namespace BlaisePascal.SmartHouse.UI
         private SmartHouseHub _hub;
         public ShuttersManager(SmartHouseHub hub) { _hub = hub; }
 
-        public void MenuScuroni()
+        public void MenuTapparelle()
         {
             bool attivo = true;
             while (attivo)
             {
                 Console.Clear();
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine("╔══════════════════════════════════════════════════╗");
-                Console.WriteLine("║                 HUB TAPPARELLE                   ║");
+                Console.WriteLine("║                  HUB TAPPARELLE                  ║");
                 Console.WriteLine("╚══════════════════════════════════════════════════╝");
                 Console.ResetColor();
                 Console.WriteLine(" [1] Installa Nuova Tapparella");
@@ -27,55 +28,33 @@ namespace BlaisePascal.SmartHouse.UI
                 switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.X: attivo = false; break;
-                    case ConsoleKey.D1:
-                        _hub.Tapparelle.Add(new Shutter());
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("\n[+] Tapparella installata.");
-                        Console.ResetColor();
-                        Console.ReadKey();
-                        break;
-                    case ConsoleKey.D2: SelezionaTapparella(); break;
+                    case ConsoleKey.D1: InstallaTapparella(); break;
+                    case ConsoleKey.D2: GestisciTapparelle(); break;
                 }
             }
         }
 
-        private void SelezionaTapparella()
+        private void InstallaTapparella()
         {
-            if (_hub.Tapparelle.Count == 0) return;
             Console.Clear();
-            for (int i = 0; i < _hub.Tapparelle.Count; i++)
-                Console.WriteLine($"[{i + 1}] Tapparella");
+            Console.WriteLine("--- NUOVA TAPPARELLA ---");
+            Console.Write("Brand/Nome (es. Tapparella Camera Letto): ");
+            string brand = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(brand)) brand = "Finestra Generica";
 
-            Console.Write("\nScegli numero: ");
-            if (int.TryParse(Console.ReadLine(), out int index) && index > 0 && index <= _hub.Tapparelle.Count)
-                GestisciSingolaTapparella(_hub.Tapparelle[index - 1]);
+            _hub.Tapparelle.Add(new Shutter(new Name(brand)));
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\n[+] Tapparella '{brand}' installata con successo!");
+            Console.ResetColor();
+            Console.ReadKey();
         }
 
-        private void GestisciSingolaTapparella(Shutter tapparella)
+        private void GestisciTapparelle()
         {
-            bool attivo = true;
-            while (attivo)
-            {
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine($"╔═════ CONTROLLO TAPPARELLA ═════╗");
-                Console.ResetColor();
-                Console.Write("Stato: ");
-                if (tapparella.is_open) { Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine("APERTA"); }
-                else { Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("CHIUSA"); }
-                Console.ResetColor();
-                Console.WriteLine("----------------------------------");
-                Console.WriteLine(" [A] Apri");
-                Console.WriteLine(" [B] Chiudi");
-                Console.WriteLine(" [X] Indietro");
-
-                switch (Console.ReadKey(true).Key)
-                {
-                    case ConsoleKey.A: tapparella.Open(); break;
-                    case ConsoleKey.B: tapparella.Close(); break;
-                    case ConsoleKey.X: attivo = false; break;
-                }
-            }
+            // ... Tuo codice per aprire/chiudere ...
+            Console.WriteLine("\n[Funzione GestisciTapparelle da completare]");
+            Console.ReadKey();
         }
     }
 }
