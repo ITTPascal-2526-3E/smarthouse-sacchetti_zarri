@@ -23,7 +23,7 @@ namespace BlaisePascal.SmartHouse.UI
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("╔══════════════════════════════════════════════════╗");
-                Console.WriteLine("║                  HUB ILLUMINAZIONE               ║");
+                Console.WriteLine("║                 HUB ILLUMINAZIONE                ║");
                 Console.WriteLine("╚══════════════════════════════════════════════════╝");
                 Console.ResetColor();
                 Console.WriteLine(" [1] Installa Nuovo Punto Luce (Lamp, Eco, Led...)");
@@ -77,11 +77,13 @@ namespace BlaisePascal.SmartHouse.UI
                 Console.Write("Luminosità Massima (es. 100): ");
                 if (!int.TryParse(Console.ReadLine(), out int maxBrightness) || maxBrightness < 1) maxBrightness = 100;
 
-                // === COMMAND: APPLICATION LAYER ===
                 if (tipo == ConsoleKey.D1)
                 {
+                    // ===> MODIFICA 1: CREAZIONE TRAMITE APPLICATION LAYER <===
+                    // Qui usiamo il comando AddLampCommand. Questo comando si occuperà di creare 
+                    // l'entità di dominio e salvarla fisicamente nell'InMemoryLampRepository.
                     new AddLampCommand(_hub.LampRepository).Execute(brand, maxBrightness, watt);
-                    MessaggioSuccesso("Lampada Standard");
+                    MessaggioSuccesso("Lampada Standard (Salvata nel Repository)");
                 }
                 if (tipo == ConsoleKey.D2) { _hub.Lampade.Add(new EcoLamp(new Power(watt), new Name(brand), new Brightness(maxBrightness))); MessaggioSuccesso("EcoLamp"); }
                 if (tipo == ConsoleKey.D3) { _hub.SingoliLed.Add(new Led(new Power(watt), new Name(brand), new Brightness(maxBrightness))); MessaggioSuccesso("Singolo LED"); }
@@ -114,14 +116,13 @@ namespace BlaisePascal.SmartHouse.UI
 
         private void GestisciTutteLeLuci()
         {
-            // === QUI USIAMO LE QUERIES DELL'APPLICATION LAYER PER LE LAMPADE STANDARD ===
             var tutteLeLuci = new List<dynamic>();
 
-            // 1. Recuperiamo le lampade dal Repository usando la Query apposita
+            // ===> MODIFICA 2: LETTURA DAL REPOSITORY (QUERY) <===
+            // Usiamo la Query GetAllLampsQuery per prendere le lampade standard.
             var lampadeStandard = new GetAllLampsQuery(_hub.LampRepository).Execute();
             if (lampadeStandard != null) tutteLeLuci.AddRange(lampadeStandard);
 
-            // 2. Aggiungiamo le altre luci "speciali" che non passano per l'Application Layer (gestione diretta)
             tutteLeLuci.AddRange(_hub.Lampade);     // EcoLamp
             tutteLeLuci.AddRange(_hub.SingoliLed);  // Led singoli
             tutteLeLuci.AddRange(_hub.MatriciLed);  // Matrici
@@ -182,8 +183,8 @@ namespace BlaisePascal.SmartHouse.UI
                 Console.WriteLine($"╔═════ CONTROLLO: {titolo.ToUpper()} ═════╗");
                 Console.ResetColor();
                 Console.Write("Stato:      ");
-                if (luce.is_on) { Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine("● ACCESA"); }
-                else { Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("○ SPENTA"); }
+                if (luce.is_on) { Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine("ACCESA"); }
+                else { Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("SPENTA"); }
                 Console.ResetColor();
 
                 int luminositaAttuale = 0;
@@ -193,6 +194,10 @@ namespace BlaisePascal.SmartHouse.UI
                 Console.WriteLine("-----------------------------------");
                 Console.WriteLine(" [A] Accendi  | [B] Spegni");
                 Console.WriteLine(" [C] Regola Luminosità");
+
+                // Opzione visibile solo se è una Lampada Standard (per testare RemoveLampCommand)
+                if (luce is Lamp) Console.WriteLine(" [D] Rimuovi Lampada dal Repository");
+
                 Console.WriteLine(" [X] Indietro");
 
                 var tastoPremuto = Console.ReadKey(true).Key;
@@ -200,30 +205,59 @@ namespace BlaisePascal.SmartHouse.UI
                 switch (tastoPremuto)
                 {
                     case ConsoleKey.A:
-                        if (luce is Lamp) new SwitchLampOnCommand(_hub.LampRepository).Execute(luce.deviceId);
+                        if (luce is Lamp)
+                        {
+                            // ===> MODIFICA 3: CHIAMATA COMMAND ACCENSIONE <===
+                            // Delega l'azione di accensione all'Application Layer passando il Repository
+                            new SwitchLampOnCommand(_hub.LampRepository).Execute(luce.deviceId);
+                        }
                         else luce.turnOn();
                         break;
+
                     case ConsoleKey.B:
-                        if (luce is Lamp) new SwitchLampOffCommand(_hub.LampRepository).Execute(luce.deviceId);
+                        if (luce is Lamp)
+                        {
+                            // ===> MODIFICA 4: CHIAMATA COMMAND SPEGNIMENTO <===
+                            // Delega l'azione di spegnimento all'Application Layer
+                            new SwitchLampOffCommand(_hub.LampRepository).Execute(luce.deviceId);
+                        }
                         else luce.turnOff();
                         break;
+
                     case ConsoleKey.C:
                         if (!luce.is_on) break;
                         Console.Write("\nNuova luminosità (1-100): ");
                         if (int.TryParse(Console.ReadLine(), out int lum) && lum >= 1 && lum <= 100)
                         {
-                            if (luce is Lamp) new ChangeIntensityCommand(_hub.LampRepository).Execute(luce.deviceId, lum);
+                            if (luce is Lamp)
+                            {
+                                // ===> MODIFICA 5: CHIAMATA COMMAND LUMINOSITÀ <===
+                                // L'Application Layer recupererà la lampada e applicherà la nuova luminosità
+                                new ChangeIntensityCommand(_hub.LampRepository).Execute(luce.deviceId, lum);
+                            }
                             else luce.adjustBrightness(new Brightness(lum));
                         }
                         break;
+
+                    case ConsoleKey.D:
+                        if (luce is Lamp)
+                        {
+                            // ===> MODIFICA 6: CHIAMATA COMMAND ELIMINAZIONE <===
+                            // Visto che hai il file RemoveLampCommand.cs, lo invochiamo qui!
+                            new RemoveLampCommand(_hub.LampRepository).Execute(luce.deviceId);
+                            attivo = false; // Usciamo dal menu perché la lampada non esiste più
+                        }
+                        break;
+
                     case ConsoleKey.X:
                         attivo = false;
                         break;
                 }
 
-                // === QUERY: APPLICATION LAYER ===
-                // Ricarichiamo lo stato con la Query aggiornata dal Repository
-                if (luce is Lamp && tastoPremuto != ConsoleKey.X)
+                // ===> MODIFICA 7: RECUPERO STATO AGGIORNATO (QUERY) <===
+                // Dopo aver eseguito un comando (A, B o C), ricarichiamo la lampada fresca dal Repository
+                // Questo dimostra che il DB In-Memory è stato effettivamente modificato!
+                if (luce is Lamp && tastoPremuto != ConsoleKey.X && tastoPremuto != ConsoleKey.D)
                 {
                     luce = new GetLampQuery(_hub.LampRepository).Execute(luce.deviceId);
                 }
@@ -232,6 +266,7 @@ namespace BlaisePascal.SmartHouse.UI
 
         private void GestioneMatrice(MatrixLed ml)
         {
+            // ... (il codice della matrice resta invariato in quanto non passa dal repository)
             bool attivo = true;
             while (attivo)
             {
